@@ -1,14 +1,17 @@
 import { QueryClient } from "react-query";
-
 import { wrapper } from "../redux/store";
 import { getFeaturedProducts } from "~/redux/actions/productActions.js";
 import Home from "~/components/Home";
-import { dehydrate } from "react-query/hydration";
-import { fetchPopularProducts } from "~/framework/rest/products/popular-product.query";
+import {  useLatestProductsQuery } from "~/framework/rest/products/latest-products.query";
 import { API_ENDPOINTS } from "~/framework/rest/utils/endpoints";
 import axios from "axios";
 
 export default function index({ popularProducts, brands, featuredCategories }) {
+
+  const {data, isLoading, isError} = useLatestProductsQuery({limit: 10});
+  console.log(data)
+
+
   return (
     <Home
       popularProducts={popularProducts}
@@ -67,6 +70,8 @@ export const getStaticProps = async () => {
     const featuredCategories = await axios.get(
       "http://myshop.test/api/v1/categories/featured"
     );
+
+      
 
     return {
       props: {

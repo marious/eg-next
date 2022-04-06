@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import Helmet from "react-helmet";
 import { useStore } from "react-redux";
 import { Provider } from "react-redux";
+import { Hydrate } from "react-query/hydration"
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Hydrate } from "react-query/hydration";
 
 import { wrapper } from "../store/index.js";
 import Layout from "../components/layout";
