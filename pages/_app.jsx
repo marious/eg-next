@@ -29,6 +29,7 @@ const WrappedApp = ({ Component, pageProps }) => {
 
   return (
     <QueryClientProvider client={queryClientRef.current}>
+    <Hydrate state={pageProps.dehydratedState}>
       <Provider store={store}>
         <PersistGate
           persistor={store.__persistor}
@@ -42,7 +43,6 @@ const WrappedApp = ({ Component, pageProps }) => {
             </div>
           }
         >
-          <Hydrate state={pageProps.dehydratedState}>
             <Helmet>
               <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
               <meta name="keywords" content="Molla React Template" />
@@ -92,9 +92,9 @@ const WrappedApp = ({ Component, pageProps }) => {
             <Layout>
               <Component {...pageProps} />
             </Layout>
-          </Hydrate>
         </PersistGate>
       </Provider>
+      </Hydrate>
     </QueryClientProvider>
   );
 };

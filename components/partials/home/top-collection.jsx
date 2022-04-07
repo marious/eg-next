@@ -1,11 +1,18 @@
 import { Tab, Tabs, TabPanel, TabList } from "react-tabs";
 
 import ProductTwelve from "~/components/features/products/product-twelve";
+import { useFeaturedCategoriesQuery } from "~/framework/rest/categories/featured-categories-query";
+import { useLatestProductsQuery } from "~/framework/rest/products/latest-products.query";
 
 import { catFilter } from "~/utils";
 
-function TopCollection(props) {
-  const { products = [], loading, categories } = props;
+function TopCollection() {
+ const {data: products, isLoading: loading, isError} = useLatestProductsQuery({limit: 10});
+ const {data: categories, isLoading: loadingCategories} = useFeaturedCategoriesQuery({limit: 5});
+
+  if (loadingCategories) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Tabs defaultIndex={0} selectedTabClassName="show">
@@ -17,7 +24,7 @@ function TopCollection(props) {
               <span className="nav-link">All</span>
             </Tab>
 
-            {categories.length &&
+            {!loadingCategories &&
               categories.map((category) => (
                 <Tab className="nav-item" key={category.id}>
                   <span className="nav-link">{category.name}</span>

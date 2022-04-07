@@ -7,13 +7,12 @@ const fetchLatestProducts = async ({ queryKey }) => {
   const limit = params ? params : 10;
   const url = `${API_ENDPOINTS.LATEST_PRODUCTS}/${limit}`;
   const res = await request.get(url);
-  console.log('welcome mohammed',res.data.data);
   return res.data.data;
 };
 
-const useLatestProductsQuery = (options = { limit, shop_id }) => {
+const useLatestProductsQuery = ({ limit, shop_id }) => {
   return useQuery(
-    [API_ENDPOINTS.LATEST_PRODUCTS, options],
+    [API_ENDPOINTS.LATEST_PRODUCTS, limit],
     fetchLatestProducts
   );
 };

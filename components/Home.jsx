@@ -26,9 +26,9 @@ import {
 } from "~/utils/data";
 import { useSelector } from "react-redux";
 
-function Home({ popularProducts, brands, featuredCategories }) {
-  const products = popularProducts;
+function Home() {
 
+  const brands = [];
   // const { products, error } = useSelector((state) => state.featuredProducts);
 
   //   const { data, loading, error } = useQuery(GET_HOME_DATA);
@@ -303,7 +303,7 @@ function Home({ popularProducts, brands, featuredCategories }) {
       <div className="mb-3"></div>
 
       <Reveal keyframes={fadeIn} delay={200} duration={1000} triggerOnce>
-        <SpecialCollection products={popularProducts} />
+        <SpecialCollection />
       </Reveal>
       <div className="bg-light deal-container pt-5 pb-3 mb-5">
         <div className="container">
@@ -411,9 +411,7 @@ function Home({ popularProducts, brands, featuredCategories }) {
       <div className="mb-6"></div>
       <Reveal keyframes={fadeIn} delay={200} duration={1000} triggerOnce>
         <TopCollection
-          products={products}
           loading={false}
-          categories={featuredCategories}
         />
       </Reveal>
       {/* <BlogCollection posts={posts} loading={loading}></BlogCollection> */}

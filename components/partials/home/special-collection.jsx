@@ -2,13 +2,14 @@ import { Tab, Tabs, TabPanel, TabList } from "react-tabs";
 
 import OwlCarousel from "~/components/features/owl-carousel";
 import ProductTwelve from "~/components/features/products/product-twelve";
+import { useLatestProductsQuery } from "~/framework/rest/products/latest-products.query";
 
 import { attrFilter } from "~/utils";
 import { productSlider } from "~/utils/data";
 
-function SpecialCollection(props) {
-  const { products = [], loading } = props;
-  console.log("mohammed", props);
+function SpecialCollection() {
+  const {data: products, isLoading, isError} = useLatestProductsQuery({limit: 10});
+
 
   return (
     <Tabs defaultIndex={0} selectedTabClassName="show">
@@ -30,7 +31,7 @@ function SpecialCollection(props) {
 
       <div className="container-fluid">
         <TabPanel>
-          {loading ? (
+          {isLoading ? (
             <OwlCarousel
               adClass="owl-simple carousel-with-shadow cols-xxl-6 cols-xl-5 cols-lg-4 cols-md-3 cols-xs-2"
               options={productSlider}
@@ -52,7 +53,7 @@ function SpecialCollection(props) {
         </TabPanel>
 
         <TabPanel>
-          {loading ? (
+          {isLoading ? (
             <OwlCarousel
               adClass="owl-simple carousel-with-shadow cols-xxl-6 cols-xl-5 cols-lg-4 cols-md-3 cols-xs-2"
               options={productSlider}
@@ -74,7 +75,7 @@ function SpecialCollection(props) {
         </TabPanel>
 
         <TabPanel>
-          {loading ? (
+          {isLoading ? (
             <OwlCarousel
               adClass="owl-simple carousel-with-shadow cols-xxl-6 cols-xl-5 cols-lg-4 cols-md-3 cols-xs-2"
               options={productSlider}
@@ -100,18 +101,3 @@ function SpecialCollection(props) {
 }
 
 export default SpecialCollection;
-
-export const getStaticProps = async () => {
-  try {
-    const popularRes = await axios.get(
-      "http://myshop.test/api/v1/product/latest/10"
-    );
-    return {
-      props: {
-        popularProducts: popularRes.data.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-  }
-};
