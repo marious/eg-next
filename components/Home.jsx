@@ -25,9 +25,9 @@ import {
   fadeIn,
 } from "~/utils/data";
 import { useSelector } from "react-redux";
+import HeroBlock from "~/containers/hero-block";
 
 function Home() {
-
   const brands = [];
   // const { products, error } = useSelector((state) => state.featuredProducts);
 
@@ -42,104 +42,7 @@ function Home() {
 
   return (
     <div className="main home-page skeleton-body">
-      <div className="intro-slider-container">
-        <OwlCarousel
-          adClass="owl-simple owl-light owl-nav-inside"
-          options={introSlider}
-        >
-          <div
-            className="intro-slide slide1"
-            style={{
-              backgroundColor: "#EDF2F0",
-              backgroundImage: "url(images/home/sliders/slide-1-1.png)",
-            }}
-          >
-            <div className="container intro-content">
-              <Reveal keyframes={fadeInUpShorter} delay="100%" duration={1000}>
-                <>
-                  <h3 className="intro-subtitle">Deals and Promotions</h3>
-                  <h1 className="intro-title">
-                    Wooden <br />
-                    Sideboard Table <br />
-                    <span className="text-primary">
-                      <sup>$</sup>49,99
-                    </span>
-                  </h1>
-
-                  <ALink
-                    href="/shop/sidebar/list"
-                    className="btn btn-dark btn-outline-darker"
-                  >
-                    <span>Shop Now</span>
-                    <i className="icon-long-arrow-right"></i>
-                  </ALink>
-                </>
-              </Reveal>
-              <img
-                src="images/home/sliders/slide-1-3.png"
-                className="position-absolute"
-                alt="slide"
-              />
-            </div>
-          </div>
-          <div
-            className="intro-slide"
-            style={{ backgroundImage: "url(images/home/sliders/slide-2.jpg)" }}
-          >
-            <div className="container intro-content text-right">
-              <Reveal keyframes={fadeInUpShorter} delay="100%" duration={1000}>
-                <div className="d-inline-block text-left">
-                  <h3 className="intro-subtitle">Bedroom Furniture</h3>
-                  <h1 className="intro-title">
-                    Find Comfort <br />
-                    That Suits You.
-                  </h1>
-
-                  <ALink
-                    href="/shop/sidebar/list"
-                    className="btn btn-dark btn-outline-darker"
-                  >
-                    <span>Shop Now</span>
-                    <i className="icon-long-arrow-right"></i>
-                  </ALink>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-
-          <div
-            className="intro-slide slide3"
-            style={{
-              backgroundColor: "#EDF2F0",
-              backgroundImage: "url(images/home/sliders/slide-3-1.png)",
-            }}
-          >
-            <div className="container intro-content">
-              <Reveal keyframes={fadeInUpShorter} delay="100%" duration={1000}>
-                <>
-                  <h3 className="intro-subtitle">Baskets & Storage</h3>
-                  <h1 className="intro-title">
-                    Laundary Basket
-                    <br />
-                    <span className="text-primary">
-                      <sup className="text-grey font-weight-light">from</sup>
-                      <sup>$</sup>9,99
-                    </span>
-                  </h1>
-
-                  <ALink
-                    href="/shop/sidebar/list"
-                    className="btn btn-dark btn-outline-darker"
-                  >
-                    <span>Shop Now</span>
-                    <i className="icon-long-arrow-right"></i>
-                  </ALink>
-                </>
-              </Reveal>
-            </div>
-          </div>
-        </OwlCarousel>
-      </div>
+      <HeroBlock />
       <Reveal keyframes={fadeIn} delay="100%" duration={500} triggerOnce>
         <OwlCarousel
           adClass="brands-border owl-simple brand-carousel cols-xl-7 cols-lg-5 cols-md-4 cols-sm-3 cols-2"
@@ -410,9 +313,7 @@ function Home() {
       </div>
       <div className="mb-6"></div>
       <Reveal keyframes={fadeIn} delay={200} duration={1000} triggerOnce>
-        <TopCollection
-          loading={false}
-        />
+        <TopCollection loading={false} />
       </Reveal>
       {/* <BlogCollection posts={posts} loading={loading}></BlogCollection> */}
       <Reveal keyframes={fadeIn} delay={200} duration={1000} triggerOnce>

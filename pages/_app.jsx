@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { Hydrate } from "react-query/hydration"
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import { wrapper } from "../store/index.js";
 import Layout from "../components/layout";
@@ -95,6 +96,7 @@ const WrappedApp = ({ Component, pageProps }) => {
         </PersistGate>
       </Provider>
       </Hydrate>
+	   <ReactQueryDevtools /> 
     </QueryClientProvider>
   );
 };

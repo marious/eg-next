@@ -7,11 +7,16 @@ import { useLatestProductsQuery } from "~/framework/rest/products/latest-product
 import { catFilter } from "~/utils";
 
 function TopCollection() {
- const {data: products, isLoading: loading, isError} = useLatestProductsQuery({limit: 10});
- const {data: categories, isLoading: loadingCategories} = useFeaturedCategoriesQuery({limit: 5});
+  const {
+    data: products,
+    isLoading: loading,
+    isError,
+  } = useLatestProductsQuery({ limit: 10 });
+  const { data: categories, isLoading: loadingCategories } =
+    useFeaturedCategoriesQuery({ limit: 5 });
 
   if (loadingCategories) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (

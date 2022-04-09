@@ -8,8 +8,11 @@ import { attrFilter } from "~/utils";
 import { productSlider } from "~/utils/data";
 
 function SpecialCollection() {
-  const {data: products, isLoading, isError} = useLatestProductsQuery({limit: 10});
-
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useLatestProductsQuery({ limit: 10 });
 
   return (
     <Tabs defaultIndex={0} selectedTabClassName="show">
