@@ -1,36 +1,28 @@
-import { useRouter } from "next/router";
-import axios from "axios";
-// import { useQuery } from '@apollo/react-hooks';
-
-// import withApollo from '~/server/apollo';
-// import { GET_PRODUCT } from '~/server/queries';
-
 import Breadcrumb from "~/components/partials/product/breadcrumb";
 import GalleryDefault from "~/components/partials/product/gallery/gallery-default";
 import DetailOne from "~/components/partials/product/details/detail-one";
-import InfoOne from "~/components/partials/product/info-tabs/info-one";
 import RelatedProductsOne from "~/components/partials/product/related/related-one";
+import request from "~/framework/rest/utils/request";
+import { useQuery } from "react-query";
+import { fetchRelatedProducts } from "~/framework/rest/products/products.query";
 
-function ProductDefault({ product }) {
+export {getStaticProps, getStaticPaths } from "~/framework/rest/ssr/product"
+
+
+
+
+function ProductDefault({ product, notfound}) {
+
+  // if (notfound) return <div>Error</div>
+  const {data: related, isLoading: loadingRelated, error} = useQuery(`related-product-${product.id}`, () => fetchRelatedProducts(product.id), {
+    staleTime: 200000
+  })
+
   const loading = false;
-  //   const slug = useRouter().query.slug;
-  //   if (!slug) return <div></div>;
-
-  //   const { data, loading, error } = useQuery(GET_PRODUCT, {
-  //     variables: { slug },
-  //   });
-  //   const product = data && data.product.single;
-  //   const related = data && data.product.related;
-  //   const prev = data && data.product.prev;
-  //   const next = data && data.product.next;
-
-  //   if (error) {
-  //     return <div></div>;
-  //   }
 
   return (
     <div className="main">
-      {/* <Breadcrumb prev={prev} next={next} current="Default" /> */}
+      <Breadcrumb prev="/" next="/next" current={product.name} />
       <div className="page-content">
         <div className="container skeleton-body">
           <div className="product-details-top">
@@ -60,7 +52,7 @@ function ProductDefault({ product }) {
             <InfoOne product={product} />
           )} */}
 
-          {/* <RelatedProductsOne products={related} loading={loading} /> */}
+          <RelatedProductsOne products={related} loading={loadingRelated} />
         </div>
       </div>
     </div>
@@ -68,16 +60,3 @@ function ProductDefault({ product }) {
 }
 
 export default ProductDefault;
-
-export async function getServerSideProps(context) {
-  try {
-    const response = await axios.get(
-      `http://myshop.test/api/v1/product/details/${context.query.slug}`
-    );
-    return {
-      props: { product: response.data.data },
-    };
-  } catch (error) {
-    return error;
-  }
-}

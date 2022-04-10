@@ -21,17 +21,21 @@ function ProductSix ( props ) {
     useEffect( () => {
         let min = minPrice;
         let max = maxPrice;
-        product.variants.map( item => {
-            if ( min > item.price ) min = item.price;
-            if ( max < item.price ) max = item.price;
-        }, [] );
-
-        if ( product.variants.length == 0 ) {
-            min = product.sale_price
-                ? product.sale_price
-                : product.price;
-            max = product.price;
+        if (product.is_variant) {
+            console.log('is variant');
+            product.variations.map( item => {
+                if ( min > item.price ) min = item.price;
+                if ( max < item.price ) max = item.price;
+            }, [] );
+        } else {
+            min = product.base_discounted_price
+                ? product.base_discounted_price
+                : product.base_price;
+            max = product.base_price;
         }
+       
+        console.log('min price', min);
+        console.log('max price', max);
 
         setMinPrice( min );
         setMaxPrice( max );
@@ -93,22 +97,11 @@ function ProductSix ( props ) {
                 <ALink href={ `/product/default/${product.slug}` }>
                     <LazyLoadImage
                         alt="product"
-                        src={ process.env.NEXT_PUBLIC_ASSET_URI + product.sm_pictures[ 0 ].url }
+                        src={ product.thumbnail_image }
                         threshold={ 500 }
                         effect="black and white"
                         wrapperClassName="product-image"
                     />
-                    {
-                        product.sm_pictures.length >= 2 ?
-                            <LazyLoadImage
-                                alt="product"
-                                src={ process.env.NEXT_PUBLIC_ASSET_URI + product.sm_pictures[ 1 ].url }
-                                threshold={ 500 }
-                                effect="black and white"
-                                wrapperClassName="product-image-hover"
-                            />
-                            : ""
-                    }
                 </ALink>
 
                 {
@@ -140,7 +133,7 @@ function ProductSix ( props ) {
                     product.stock && product.stock !== 0 ?
                         <div className="product-action">
                             {
-                                product.variants.length > 0 ?
+                                product.is_variant ?
                                     <ALink href={ `/product/default/${product.slug}` } className="btn-product btn-cart btn-select">
                                         <span>select options</span>
                                     </ALink>
@@ -163,13 +156,13 @@ function ProductSix ( props ) {
                 {
                     !product.stock || product.stock == 0 ?
                         <div className="product-price">
-                            <span className="out-price">${ product.price.toFixed( 2 ) }</span>
+                            <span className="out-price">${ product.base_price.toFixed( 2 ) }</span>
                         </div>
                         :
                         minPrice == maxPrice ?
                             <div className="product-price">${ minPrice.toFixed( 2 ) }</div>
                             :
-                            product.variants.length == 0 ?
+                            product.is_variant ?
                                 <div className="product-price">
                                     <span className="new-price">${ minPrice.toFixed( 2 ) }</span>
                                     <span className="old-price">${ maxPrice.toFixed( 2 ) }</span>

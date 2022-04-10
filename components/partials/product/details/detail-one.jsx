@@ -303,7 +303,9 @@ function DetailOne(props) {
       )}
 
       <div className="product-content">
-        <p>{product.description}</p>
+       <div dangerouslySetInnerHTML={ { __html: product.short_description}} >
+           
+            </div>
       </div>
 
       {product.is_variant && product.variations.length > 0 ? (
