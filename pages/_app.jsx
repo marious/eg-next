@@ -14,6 +14,7 @@ import { actions as demoAction } from "../store/demo";
 
 import "~/public/scss/plugins/owl-carousel/owl.carousel.scss";
 import "~/public/scss/style.scss";
+import { useFeaturedCategoriesQuery } from "~/framework/rest/categories/featured-categories-query.js";
 
 const WrappedApp = ({ Component, pageProps }) => {
   const queryClientRef = useRef();
@@ -29,7 +30,7 @@ const WrappedApp = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
+    <QueryClientProvider client={queryClientRef.current} contextSharing={true}>
     <Hydrate state={pageProps.dehydratedState}>
       <Provider store={store}>
         <PersistGate

@@ -108,12 +108,8 @@ function Header () {
                             <CategoryMenu />
                         </div>
 
-                        <div className="header-center">
+                        <div className="">
                             <MainMenu />
-                        </div>
-
-                        <div className="header-right overflow-hidden">
-                            <i className="la la-lightbulb-o"></i><p className="text-truncate">Clearance<span className="highlight">&nbsp;Up to 30% Off</span></p>
                         </div>
                     </div>
                 </div>

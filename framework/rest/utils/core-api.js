@@ -11,12 +11,12 @@ export class CoreApi {
     stringifySearchValue(values) {
         const parsedValues = pickBy(values);
         return Object.keys(parsedValues)
-            .map((k) => {
+            .map(k => {
                 if (k === 'type') {
-                    return `${k}.slug:${parsedValues[k]}`
+                    return `${k}.slug:${parsedValues[k]}`;
                 }
                 if (k === 'category') {
-                    return `categories.slug:${parsedValues[k]}`
+                    return `categories.slug:${parsedValues[k]}`;
                 }
                 if (k === 'tags') {
                     return `tags.slug:${parsedValues[k]}`;
@@ -27,7 +27,7 @@ export class CoreApi {
                 return `${k}:${parsedValues[k]};`;
             })
             .join('')
-            .slice(0, -1)
+            .slice(0, -1);
     }
 
     find(params) {
@@ -41,8 +41,8 @@ export class CoreApi {
             is_active,
             shop_id,
             limit = 30,
-            sortedBy="Desc",
-            orderBy = "created_at",
+            sortedBy = 'Desc',
+            orderBy = 'created_at',
             min_price,
             max_price,
         } = params;
@@ -59,12 +59,16 @@ export class CoreApi {
             min_price,
             max_price,
         });
-         const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&sortedBy=${sortedBy}&orderBy=${orderBy}`;
-        return this.http.get(this._base_path + queryString);    
+        const queryString = params
+            ? `/search?limit=${limit}&sortedBy=${sortedBy}&orderBy=${orderBy}`
+            : '';
+
+        console.log('Welcome Mohammed', this._base_path + queryString);
+        return this.http.get(this._base_path + queryString);
     }
 
     findAll() {
-        return this.http.get(this.base_path)
+        return this.http.get(this._base_path);
     }
 
     fetchUrl(url) {
@@ -76,10 +80,10 @@ export class CoreApi {
     }
 
     findOne(id) {
-        return this.http.get(`${this._base_path}/${id}`)
+        return this.http.get(`${this._base_path}/${id}`);
     }
     findRelated(id) {
-        return this.http.get(`${this._base_path}/related/${id}`)
+        return this.http.get(`${this._base_path}/related/${id}`);
     }
 
     // findBySlug(slug) {
