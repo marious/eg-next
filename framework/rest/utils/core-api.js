@@ -32,38 +32,24 @@ export class CoreApi {
 
     find(params) {
         const {
-            type,
-            text: name,
             category,
-            tags,
-            variations,
-            status,
-            is_active,
-            shop_id,
-            limit = 30,
+            brand,
             sortedBy = 'Desc',
             orderBy = 'created_at',
-            min_price,
-            max_price,
+            minPrice,
+            maxPrice,
         } = params;
 
         const searchString = this.stringifySearchValue({
-            type,
-            name,
             category,
-            tags,
-            variations,
-            status,
-            shop_id,
-            is_active,
-            min_price,
-            max_price,
+            brand,
+            minPrice,
+            maxPrice,
         });
         const queryString = params
-            ? `/search?limit=${limit}&sortedBy=${sortedBy}&orderBy=${orderBy}`
+            ? `/search?&category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortedBy=${sortedBy}&orderBy=${orderBy}`
             : '';
 
-        console.log('Welcome Mohammed', this._base_path + queryString);
         return this.http.get(this._base_path + queryString);
     }
 

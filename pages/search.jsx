@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useBrandsQuery } from '~/framework/rest/brand/brands.query';
 import { useFetchCategoriesQuery } from '~/framework/rest/categories/featured-categories-query';
-import { useProductsQuery } from '~/framework/rest/products/products.query';
+import { useProductsSearchList } from '~/framework/rest/products/products.query';
 import PageHeader from '~/components/features/page-header';
 import ShopListOne from '~/components/partials/shop/list/shop-list-one';
 import StickyBox from 'react-sticky-box';
@@ -23,7 +23,16 @@ export default function Search() {
     const { data: brands } = useBrandsQuery();
     const { data: categories } = useFetchCategoriesQuery();
 
-    const { data: products, isLoading: loading, error } = useProductsQuery();
+    const {
+        data: products,
+        isLoading: loading,
+        error,
+    } = useProductsSearchList({
+        category: query.category ? query.category : '',
+        brand: query.brand ? query.brand.split(',') : [],
+        minPrice: parseInt(query.minPrice) ? parseInt(query.minPrice) : '',
+        maxPrice: parseInt(query.maxPrice) ? parseInt(query.maxPrice) : '',
+    });
 
     useEffect(() => {
         window.addEventListener('resize', resizeHandle);
@@ -161,7 +170,9 @@ export default function Search() {
                             <ShopListOne
                                 products={products}
                                 perPage={
-                                    loading == false && products.meta.per_page
+                                    products &&
+                                    loading == false &&
+                                    products.meta.per_page
                                 }
                                 loading={loading}
                             ></ShopListOne>
@@ -191,6 +202,8 @@ export default function Search() {
                             >
                                 <ShopSidebarOne
                                     toggle={toggle}
+                                    brands={brands}
+                                    categories={categories}
                                 ></ShopSidebarOne>
                             </StickyBox>
                             {toggle ? (

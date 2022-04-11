@@ -35,13 +35,12 @@ function MainMenu() {
                 {categories &&
                     categories.map(category => (
                         <li
-                            key={category.slug}
                             className={
-                                path.indexOf('product/') > -1 ? 'active' : ''
+                                path.indexOf('element') > -1 ? 'active' : ''
                             }
                         >
                             <ALink
-                                href="/"
+                                href={`/search?category=${category.slug}`}
                                 className={`${
                                     category.children.data.length
                                         ? 'sf-with-ul'
@@ -50,7 +49,8 @@ function MainMenu() {
                             >
                                 {category.name}
                             </ALink>
-                            {category.children.data.length && (
+
+                            {category.children.data.length != 0 && (
                                 <ul>
                                     {category.children.data.map(item => (
                                         <li key={item.slug}>

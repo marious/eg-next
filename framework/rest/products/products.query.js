@@ -4,14 +4,13 @@ import { API_ENDPOINTS } from '../utils/endpoints';
 
 const ProductService = new CoreApi(API_ENDPOINTS.PRODUCTS);
 
-// export const fetchProducts = async ({ queryKey }) => {
-//     const params = queryKey[1];
-//     const response = await ProductService.find(params);
-//     console.log('response is', response.data);
-//     return response.data;
-//     // const fetchedData = response.data ? response.data : null;
-//     // return fetchedData;
-// };
+export const fetchProductsForSearchedList = async ({ queryKey }) => {
+    const params = queryKey[1];
+    const response = await ProductService.find(params);
+    return response.data;
+    // const fetchedData = response.data ? response.data : null;
+    // return fetchedData;
+};
 
 export const fetchProducts = async () => {
     const { data } = await ProductService.findAll();
@@ -30,4 +29,11 @@ export const fetchRelatedProducts = async id => {
 
 export const useProductsQuery = () => {
     return useQuery([API_ENDPOINTS.PRODUCTS], fetchProducts);
+};
+
+export const useProductsSearchList = options => {
+    return useQuery(
+        [API_ENDPOINTS.PRODUCTS, options],
+        fetchProductsForSearchedList
+    );
 };
