@@ -264,3 +264,10 @@ $font-family: 'Jost';
 /*-------------------- 8.HomePage --------------------*/
 @import 'skins/skin';
 @import 'custom';
+
+.rtl {
+    direction: rtl;
+}
+.ltr {
+    direction: ltr;
+}

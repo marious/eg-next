@@ -35,6 +35,7 @@ function MainMenu() {
                 {categories &&
                     categories.map(category => (
                         <li
+                            key={category.slug}
                             className={
                                 path.indexOf('element') > -1 ? 'active' : ''
                             }

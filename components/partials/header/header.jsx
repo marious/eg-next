@@ -9,28 +9,34 @@ import CartMenu from '~/components/partials/header/partials/cart-menu';
 import CategoryMenu from '~/components/partials/header/partials/category-menu';
 import MainMenu from '~/components/partials/header/partials/main-menu';
 import StickyHeader from '~/components/features/sticky-header';
+import LanguageSwitcher from '~/components/features/language-switcher';
 
-function Header () {
+function Header() {
     const router = useRouter();
-    const [ containerClass, setContainerClass ] = useState( 'container' );
+    const [containerClass, setContainerClass] = useState('container');
 
-    function openMobileMenu () {
-        document.querySelector( 'body' ).classList.add( 'mmenu-active' );
+    function openMobileMenu() {
+        document.querySelector('body').classList.add('mmenu-active');
     }
 
-    useEffect( () => {
-        setContainerClass( router.asPath.includes( 'fullwidth' ) ? 'container-fluid' : 'container' );
-    }, [ router.asPath ] );
+    useEffect(() => {
+        setContainerClass(
+            router.asPath.includes('fullwidth')
+                ? 'container-fluid'
+                : 'container'
+        );
+    }, [router.asPath]);
 
     return (
         <header className="header header-2 header-intro-clearance">
             <div className="header-top">
-                <div className={ containerClass }>
-                    <div className="header-left overflow-hidden mr-3 mr-sm-0">
+                <div className={containerClass}>
+                    {/* <div className="header-left overflow-hidden mr-3 mr-sm-0">
                         <div className="welcome-msg d-flex flex-nowrap">
-                            <p>Special collection already available.</p><ALink href="#">&nbsp;Read more ...</ALink>
+                            <p>Special collection already available.</p>
+                            <ALink href="#">&nbsp;Read more ...</ALink>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="header-right">
                         <ul className="top-menu">
@@ -38,27 +44,7 @@ function Header () {
                                 <ALink href="#">Links</ALink>
                                 <ul>
                                     <li>
-                                        <div className="header-dropdown">
-                                            <ALink href="#">USD</ALink>
-                                            <div className="header-menu">
-                                                <ul>
-                                                    <li><ALink href="#">Eur</ALink></li>
-                                                    <li><ALink href="#">Usd</ALink></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="header-dropdown">
-                                            <ALink href="#">English</ALink>
-                                            <div className="header-menu">
-                                                <ul>
-                                                    <li><ALink href="#">English</ALink></li>
-                                                    <li><ALink href="#">French</ALink></li>
-                                                    <li><ALink href="#">Spanish</ALink></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <LanguageSwitcher />
                                     </li>
                                     <LoginModal />
                                 </ul>
@@ -69,15 +55,23 @@ function Header () {
             </div>
 
             <div className="header-middle">
-                <div className={ containerClass }>
+                <div className={containerClass}>
                     <div className="header-left">
-                        <button className="mobile-menu-toggler" onClick={ openMobileMenu }>
+                        <button
+                            className="mobile-menu-toggler"
+                            onClick={openMobileMenu}
+                        >
                             <span className="sr-only">Toggle mobile menu</span>
                             <i className="icon-bars"></i>
                         </button>
 
                         <ALink href="/" className="logo">
-                            <img src="images/logo.png" alt="Molla Logo" width={ 104 } height={ 27 } />
+                            <img
+                                src="images/logo.png"
+                                alt="Molla Logo"
+                                width={104}
+                                height={27}
+                            />
                         </ALink>
                     </div>
 
@@ -86,6 +80,7 @@ function Header () {
                     </div>
 
                     <div className="header-right">
+                        <LanguageSwitcher />
                         <div className="account">
                             <ALink href="/shop/dashboard" title="My account">
                                 <div className="icon">
@@ -103,7 +98,7 @@ function Header () {
 
             <StickyHeader>
                 <div className="header-bottom sticky-header">
-                    <div className={ containerClass }>
+                    <div className={containerClass}>
                         <div className="header-left">
                             <CategoryMenu />
                         </div>
@@ -115,7 +110,7 @@ function Header () {
                 </div>
             </StickyHeader>
         </header>
-    )
+    );
 }
 
 export default Header;
