@@ -3,26 +3,37 @@ import { API_ENDPOINTS } from '../utils/endpoints';
 import request from '../utils/request';
 
 export const fetchFeaturedCategories = async ({ queryKey }) => {
-    const [_key, params] = queryKey;
-    const limit = params ? params : 5;
+    const [key, limit, locale] = queryKey;
     const url = `${API_ENDPOINTS.FEATURED_CATEGORIES}`;
-    const { data } = await request.get(url);
+    const { data } = await request.get(url, {
+        headers: {
+            'Accept-Language': locale,
+        },
+    });
     return data.data;
 };
 
-export const fetchCategories = async () => {
+export const fetchCategories = async ({ queryKey }) => {
+    const [locale] = queryKey;
     const url = `${API_ENDPOINTS.FEATURED_CATEGORIES}`;
-    const { data } = await request.get(url);
+    const { data } = await request.get(url, {
+        headers: {
+            'Accept-Language': locale,
+        },
+    });
     return data.data;
 };
 
-export const useFeaturedCategoriesQuery = ({ limit }) => {
+export const useFeaturedCategoriesQuery = ({ limit, locale }) => {
     return useQuery(
-        [API_ENDPOINTS.FEATURED_CATEGORIES, limit],
+        [API_ENDPOINTS.FEATURED_CATEGORIES, limit, locale],
         fetchFeaturedCategories
     );
 };
 
-export const useFetchCategoriesQuery = () => {
-    return useQuery(API_ENDPOINTS.FEATURED_CATEGORIES, fetchCategories);
+export const useFetchCategoriesQuery = locale => {
+    return useQuery(
+        [API_ENDPOINTS.FEATURED_CATEGORIES, locale],
+        fetchCategories
+    );
 };

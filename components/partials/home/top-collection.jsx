@@ -1,3 +1,5 @@
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { Tab, Tabs, TabPanel, TabList } from 'react-tabs';
 
 import ProductTwelve from '~/components/features/products/product-twelve';
@@ -7,13 +9,16 @@ import { useLatestProductsQuery } from '~/framework/rest/products/latest-product
 import { catFilter } from '~/utils';
 
 function TopCollection() {
+    const { locale } = useRouter();
+    const { t } = useTranslation();
+
     const {
         data: products,
         isLoading: loading,
         isError,
     } = useLatestProductsQuery({ limit: 10 });
     const { data: categories, isLoading: loadingCategories } =
-        useFeaturedCategoriesQuery({ limit: 5 });
+        useFeaturedCategoriesQuery({ locale });
 
     if (loadingCategories) {
         return <div>Loading...</div>;
@@ -23,10 +28,10 @@ function TopCollection() {
         <Tabs defaultIndex={0} selectedTabClassName="show">
             <div className="container">
                 <div className="heading heading-center mb-3">
-                    <h2 className="title">Top Selling Products</h2>
+                    <h2 className="title">{t('Top Selling Products')}</h2>
                     <TabList className="nav nav-pills nav-border-anim justify-content-center">
                         <Tab className="nav-item">
-                            <span className="nav-link">All</span>
+                            <span className="nav-link">{t('All')}</span>
                         </Tab>
 
                         {!loadingCategories &&

@@ -7,6 +7,7 @@ import { Hydrate } from 'react-query/hydration';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useRouter } from 'next/router';
 
 import { wrapper } from '../store/index.js';
 import Layout from '../components/layout';
@@ -24,6 +25,9 @@ const WrappedApp = ({ Component, pageProps }) => {
         queryClientRef.current = new QueryClient();
     }
 
+    const { locale } = useRouter();
+    const dir = getDirection(locale);
+
     // Use the layout defined at the page level, if available
     const getLayout = Component.getLayout ?? (page => page);
 
@@ -34,7 +38,9 @@ const WrappedApp = ({ Component, pageProps }) => {
                 demoAction.refreshStore(process.env.NEXT_PUBLIC_DEMO)
             );
         }
-    }, []);
+        document.documentElement.dir = dir;
+        // document.querySelector('body').classList.add(dir);
+    }, [dir]);
 
     return (
         <QueryClientProvider
@@ -120,13 +126,7 @@ const WrappedApp = ({ Component, pageProps }) => {
                         </Helmet>
 
                         <Layout>
-                            <div
-                                className={`${
-                                    getDirection() == 'rtl' ? 'rtl' : 'ltr'
-                                }`}
-                            >
-                                {getLayout(<Component {...pageProps} />)}
-                            </div>
+                            <div>{getLayout(<Component {...pageProps} />)}</div>
                         </Layout>
                     </PersistGate>
                 </Provider>
@@ -144,4 +144,4 @@ WrappedApp.getInitialProps = async ({ Component, ctx }) => {
     return { pageProps };
 };
 
-export default wrapper.withRedux(appWithTranslation(WrappedApp));
+export default appWithTranslation(wrapper.withRedux(WrappedApp));

@@ -38,6 +38,7 @@ export class CoreApi {
             orderBy = 'created_at',
             minPrice,
             maxPrice,
+            keyword,
         } = params;
 
         const searchString = this.stringifySearchValue({
@@ -45,9 +46,10 @@ export class CoreApi {
             brand,
             minPrice,
             maxPrice,
+            keyword,
         });
         const queryString = params
-            ? `/search?&category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortedBy=${sortedBy}&orderBy=${orderBy}`
+            ? `/search?&category=${category}&brand=${brand}&minPrice=${minPrice}&keyword=${keyword}&maxPrice=${maxPrice}&sortedBy=${sortedBy}&orderBy=${orderBy}`
             : '';
 
         return this.http.get(this._base_path + queryString);

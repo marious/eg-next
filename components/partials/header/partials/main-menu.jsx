@@ -9,6 +9,7 @@ function MainMenu() {
     const router = useRouter();
     let path = router.asPath;
     let query = router.query;
+    let locale = router.locale;
 
     function showAllDemos(e) {
         let demoItems = document.querySelectorAll('.demo-item.hidden');
@@ -27,7 +28,7 @@ function MainMenu() {
         data: categories,
         isLoading,
         isError,
-    } = useFeaturedCategoriesQuery({ limit: 5 });
+    } = useFeaturedCategoriesQuery({ limit: 5, locale });
 
     return (
         <nav className="main-nav">

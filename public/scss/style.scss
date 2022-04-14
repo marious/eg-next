@@ -265,9 +265,10 @@ $font-family: 'Jost';
 @import 'skins/skin';
 @import 'custom';
 
-.rtl {
-    direction: rtl;
-}
+
 .ltr {
-    direction: ltr;
+    direction: ltr !important;
+}
+.rtl {
+    direction: rtl !important;
 }

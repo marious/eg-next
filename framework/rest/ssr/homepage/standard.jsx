@@ -19,7 +19,7 @@ export async function getStaticProps({ locale }) {
 
     await queryClient.prefetchQuery(
         API_ENDPOINTS.FEATURED_CATEGORIES,
-        fetchFeaturedCategories,
+        () => fetchFeaturedCategories(locale),
         {
             staleTime: 60 * 1000,
         }

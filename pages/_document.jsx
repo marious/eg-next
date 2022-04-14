@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
             i18n.reloadResources(locale);
         }
         return (
-            <Html lang="en" dir={getDirection(locale)}>
+            <Html dir={getDirection(locale)}>
                 <Head>
                     <base href={process.env.PUBLIC_URL} />
                     <link
