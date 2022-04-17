@@ -15,6 +15,14 @@ const request = axios.create({
     },
 });
 
+export const makeGet = async (url, locale = 'ar') => {
+    return await request.get(url, {
+        headers: {
+            'Accept-Language': locale,
+        },
+    });
+};
+
 // Change request data/error here
 request.interceptors.request.use(
     config => {

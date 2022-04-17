@@ -9,9 +9,11 @@ import { GET_PRODUCTS } from '~/server/queries';
 import withApollo from '~/server/apollo';
 import { safeContent } from '~/utils';
 import { useProductsSearchList } from '~/framework/rest/products/products.query';
+import { useTranslation } from 'react-i18next';
 
 function HeaderSearch() {
-    const router = useRouter('');
+    const router = useRouter();
+    const { t } = useTranslation('common');
     const [cat, setCat] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [products, setProducts] = useState([]);
@@ -22,6 +24,7 @@ function HeaderSearch() {
         error,
     } = useProductsSearchList({
         keyword: searchTerm,
+        locale: router.locale,
     });
 
     const result = data && data.data;
@@ -117,9 +120,9 @@ function HeaderSearch() {
     function onSubmitSearchForm(e) {
         e.preventDefault();
         router.push({
-            pathname: '/shop/sidebar/list',
+            pathname: '/search',
             query: {
-                searchTerm: searchTerm,
+                keyword: searchTerm,
                 category: cat,
             },
         });
@@ -157,28 +160,25 @@ function HeaderSearch() {
                         value={searchTerm}
                         className="form-control"
                         name="q"
-                        placeholder="Search product ..."
+                        placeholder={t('Search Product ...')}
                         required
+                        autoComplete="off"
                     />
                     <button className="btn btn-primary" type="submit">
                         <i className="icon-search"></i>
                     </button>
                     <div className="live-search-list" onClick={goProductPage}>
-                        {products.length > 0 && searchTerm.length > 2 ? (
+                        {result && searchTerm.length > 2 ? (
                             <div className="autocomplete-suggestions">
                                 {searchTerm.length > 2 &&
-                                    products.map((product, index) => (
+                                    result.map((product, index) => (
                                         <ALink
                                             href={`/product/default/${product.slug}`}
                                             className="autocomplete-suggestion"
                                             key={`search-result-${index}`}
                                         >
                                             <LazyLoadImage
-                                                src={
-                                                    process.env
-                                                        .NEXT_PUBLIC_ASSET_URI +
-                                                    product.sm_pictures[0].url
-                                                }
+                                                src={product.thumbnail_image}
                                                 width={40}
                                                 height={40}
                                                 alt="product"
@@ -194,31 +194,30 @@ function HeaderSearch() {
                                                     <div className="product-price mb-0">
                                                         <span className="out-price">
                                                             $
-                                                            {product.price.toFixed(
+                                                            {product.base_price.toFixed(
                                                                 2
                                                             )}
                                                         </span>
                                                     </div>
-                                                ) : product.minPrice ==
-                                                  product.maxPrice ? (
+                                                ) : product.base_discounted_price ==
+                                                  product.base_price ? (
                                                     <div className="product-price mb-0">
                                                         $
-                                                        {product.minPrice.toFixed(
+                                                        {product.base_discounted_price.toFixed(
                                                             2
                                                         )}
                                                     </div>
-                                                ) : product.variants.length ==
-                                                  0 ? (
+                                                ) : product.is_variant == 0 ? (
                                                     <div className="product-price mb-0">
                                                         <span className="new-price">
                                                             $
-                                                            {product.minPrice.toFixed(
+                                                            {product.base_discounted_price.toFixed(
                                                                 2
                                                             )}
                                                         </span>
                                                         <span className="old-price">
                                                             $
-                                                            {product.maxPrice.toFixed(
+                                                            {product.base_price.toFixed(
                                                                 2
                                                             )}
                                                         </span>
@@ -226,11 +225,11 @@ function HeaderSearch() {
                                                 ) : (
                                                     <div className="product-price mb-0">
                                                         $
-                                                        {product.minPrice.toFixed(
+                                                        {product.base_discounted_price.toFixed(
                                                             2
                                                         )}
                                                         &ndash;$
-                                                        {product.maxPrice.toFixed(
+                                                        {product.base_price.toFixed(
                                                             2
                                                         )}
                                                     </div>

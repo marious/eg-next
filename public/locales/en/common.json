@@ -1,7 +1,11 @@
 {
-    "Hello":"Hello and welcome",
-    "All":"All",
-    "Arabic":"العربية",
-    "Top Selling Products":"Top Selling Products"
-
+    "Hello": "Hello and welcome",
+    "All": "All",
+    "Arabic": "العربية",
+    "Top Selling Products": "Top Selling Products",
+    "Categories": "Categories",
+    "Price": "Price",
+    "Brands": "Brands",
+    "Search Product ...": "Search Product ...",
+    "Sort by": "Sort by"
 }

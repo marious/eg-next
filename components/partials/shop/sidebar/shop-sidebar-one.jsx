@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import InputRange from 'react-input-range';
 import SlideToggle from 'react-slide-toggle';
 import 'react-input-range/lib/css/index.css';
-
 import ALink from '~/components/features/alink';
-import { shopData } from '~/utils/data';
+import { useTranslation } from 'react-i18next';
 
 function ShopSidebarOne(props) {
     const { toggle = false, brands, categories } = props;
     const router = useRouter();
+    const { t } = useTranslation('common');
     const query = useRouter().query;
     const [priceRange, setRange] = useState({ min: 0, max: 100000 });
 
@@ -101,43 +101,46 @@ function ShopSidebarOne(props) {
                                             e.preventDefault();
                                         }}
                                     >
-                                        Category
+                                        {t('Categories')}
                                     </a>
                                 </h3>
 
                                 <div ref={setCollapsibleElement}>
                                     <div className="widget-body pt-0">
                                         <div className="filter-items filter-items-count">
-                                            {categories.map((item, index) => (
-                                                <div
-                                                    className="filter-item"
-                                                    key={`cat_${index}`}
-                                                >
-                                                    <ALink
-                                                        className={`${
-                                                            query.category ==
-                                                            item.slug
-                                                                ? 'active'
-                                                                : ''
-                                                        }`}
-                                                        href={{
-                                                            pathname:
-                                                                router.pathname,
-                                                            query: {
-                                                                type: query.type,
-                                                                category:
-                                                                    item.slug,
-                                                            },
-                                                        }}
-                                                        scroll={false}
-                                                    >
-                                                        {item.name}
-                                                    </ALink>
-                                                    {/* <span className="item-count">
+                                            {categories &&
+                                                categories.map(
+                                                    (item, index) => (
+                                                        <div
+                                                            className="filter-item"
+                                                            key={`cat_${index}`}
+                                                        >
+                                                            <ALink
+                                                                className={`${
+                                                                    query.category ==
+                                                                    item.slug
+                                                                        ? 'active'
+                                                                        : ''
+                                                                }`}
+                                                                href={{
+                                                                    pathname:
+                                                                        router.pathname,
+                                                                    query: {
+                                                                        type: query.type,
+                                                                        category:
+                                                                            item.slug,
+                                                                    },
+                                                                }}
+                                                                scroll={false}
+                                                            >
+                                                                {item.name}
+                                                            </ALink>
+                                                            {/* <span className="item-count">
                                                             {item.count}
                                                         </span> */}
-                                                </div>
-                                            ))}
+                                                        </div>
+                                                    )
+                                                )}
                                         </div>
                                     </div>
                                 </div>
@@ -162,51 +165,52 @@ function ShopSidebarOne(props) {
                                             e.preventDefault();
                                         }}
                                     >
-                                        Brand
+                                        {t('Brands')}
                                     </a>
                                 </h3>
                                 <div ref={setCollapsibleElement}>
                                     <div className="widget-body pt-0">
                                         <div className="filter-items">
-                                            {brands.map((item, index) => (
-                                                <div
-                                                    className="filter-item"
-                                                    key={index}
-                                                >
-                                                    <div className="custom-control custom-checkbox">
-                                                        <input
-                                                            type="checkbox"
-                                                            className="custom-control-input"
-                                                            id={`brand-${
-                                                                index + 1
-                                                            }`}
-                                                            onChange={e =>
-                                                                onAttrClick(
-                                                                    e,
-                                                                    'brand',
-                                                                    item.slug
-                                                                )
-                                                            }
-                                                            checked={
-                                                                containsAttrInUrl(
-                                                                    'brand',
-                                                                    item.slug
-                                                                )
-                                                                    ? true
-                                                                    : false
-                                                            }
-                                                        />
-                                                        <label
-                                                            className="custom-control-label"
-                                                            htmlFor={`brand-${
-                                                                index + 1
-                                                            }`}
-                                                        >
-                                                            {item.name}
-                                                        </label>
+                                            {brands &&
+                                                brands.map((item, index) => (
+                                                    <div
+                                                        className="filter-item"
+                                                        key={index}
+                                                    >
+                                                        <div className="custom-control custom-checkbox">
+                                                            <input
+                                                                type="checkbox"
+                                                                className="custom-control-input"
+                                                                id={`brand-${
+                                                                    index + 1
+                                                                }`}
+                                                                onChange={e =>
+                                                                    onAttrClick(
+                                                                        e,
+                                                                        'brand',
+                                                                        item.slug
+                                                                    )
+                                                                }
+                                                                checked={
+                                                                    containsAttrInUrl(
+                                                                        'brand',
+                                                                        item.slug
+                                                                    )
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            />
+                                                            <label
+                                                                className="custom-control-label"
+                                                                htmlFor={`brand-${
+                                                                    index + 1
+                                                                }`}
+                                                            >
+                                                                {item.name}
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
                                         </div>
                                     </div>
                                 </div>
@@ -231,7 +235,7 @@ function ShopSidebarOne(props) {
                                             e.preventDefault();
                                         }}
                                     >
-                                        Price
+                                        {t('Price')}
                                     </a>
                                 </h3>
 

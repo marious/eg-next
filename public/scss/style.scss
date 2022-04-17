@@ -65,7 +65,7 @@
 /*-------------------- 6.   SPACING & HELPERS    --------------------*/
 /*-------------------- 7.   FONT ICONS   --------------------*/
 
-/*-------------------- 8.   HomePage    --------------------*/   
+/*-------------------- 8.   HomePage    --------------------*/
 
 /*-------------------- END of TABLE OF CONTENTS  ---------- */
 
@@ -264,11 +264,4 @@ $font-family: 'Jost';
 /*-------------------- 8.HomePage --------------------*/
 @import 'skins/skin';
 @import 'custom';
-
-
-.ltr {
-    direction: ltr !important;
-}
-.rtl {
-    direction: rtl !important;
-}
+@import 'rtl/style';

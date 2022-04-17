@@ -1,0 +1,39 @@
+html[dir='rtl'] {
+    body {
+        text-align: right;
+    }
+
+    .header-intro-clearance .header-middle .header-right {
+        margin-right: auto;
+        margin-left: 0;
+    }
+
+    .widget-collapsible .widget-title a:after {
+        right: auto;
+        left: 1.6rem;
+    }
+
+    .widget-collapsible .widget-title a {
+        padding-right: 0;
+    }
+    .filter-items-count .filter-item {
+        padding-right: 0;
+    }
+
+    .toolbox-sort label {
+        margin-right: 0;
+        margin-left: 1.6rem;
+    }
+
+    .toolbox .select-custom::after {
+        right: auto;
+        left: 0.9rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        .toolbox-right {
+            margin-right: auto;
+            margin-left: 0;
+        }
+    }
+}

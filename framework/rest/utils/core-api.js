@@ -1,11 +1,12 @@
 import pickBy from 'lodash/pickBy';
-import Request from './request';
+import Request, { makeGet } from './request';
 
 export class CoreApi {
     http = Request;
 
-    constructor(_base_path) {
+    constructor(_base_path, locale = 'en') {
         this._base_path = _base_path;
+        this.locale = locale;
     }
 
     stringifySearchValue(values) {
@@ -32,6 +33,7 @@ export class CoreApi {
 
     find(params) {
         const {
+            locale,
             category,
             brand,
             sortedBy = 'Desc',
@@ -41,26 +43,32 @@ export class CoreApi {
             keyword,
         } = params;
 
-        const searchString = this.stringifySearchValue({
-            category,
-            brand,
-            minPrice,
-            maxPrice,
-            keyword,
-        });
+        // const searchString = this.stringifySearchValue({
+        //     category,
+        //     brand,
+        //     minPrice,
+        //     maxPrice,
+        //     keyword,
+        // });
         const queryString = params
-            ? `/search?&category=${category}&brand=${brand}&minPrice=${minPrice}&keyword=${keyword}&maxPrice=${maxPrice}&sortedBy=${sortedBy}&orderBy=${orderBy}`
+            ? `/search?&category=${category ? category : ''}&brand=${
+                  brand ? brand : ''
+              }&minPrice=${minPrice ? minPrice : ''}&keyword=${
+                  keyword ? keyword : ''
+              }&maxPrice=${
+                  maxPrice ? maxPrice : ''
+              }&sortedBy=${sortedBy}&orderBy=${orderBy}`
             : '';
 
-        return this.http.get(this._base_path + queryString);
+        return makeGet(this._base_path + queryString, locale);
     }
 
     findAll() {
-        return this.http.get(this._base_path);
+        return makeGet(this._base_path);
     }
 
     fetchUrl(url) {
-        return this.http.get(url);
+        return makeGet(url);
     }
 
     postUrl(url, data) {
@@ -68,13 +76,25 @@ export class CoreApi {
     }
 
     findOne(id) {
-        return this.http.get(`${this._base_path}/${id}`);
+        return makeGet(`${this._base_path}/${id}`);
     }
     findRelated(id) {
-        return this.http.get(`${this._base_path}/related/${id}`);
+        return makeGet(`${this._base_path}/related/${id}`);
     }
 
-    // findBySlug(slug) {
-    //     return this.http.get()
-    // }
+    create(data, options = {}) {
+        return this.http
+            .post(`${this._base_path}`, data, options)
+            .then(res => res.data);
+    }
+
+    update(id, data) {
+        return this.http
+            .put(`${this._base_path}/${id}`, data)
+            .then(res => res.data);
+    }
+
+    delete(id) {
+        return this.http.delete(`${this._base_path}/${id}`);
+    }
 }

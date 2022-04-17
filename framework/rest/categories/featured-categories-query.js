@@ -14,7 +14,7 @@ export const fetchFeaturedCategories = async ({ queryKey }) => {
 };
 
 export const fetchCategories = async ({ queryKey }) => {
-    const [locale] = queryKey;
+    const [_key, locale] = queryKey;
     const url = `${API_ENDPOINTS.FEATURED_CATEGORIES}`;
     const { data } = await request.get(url, {
         headers: {

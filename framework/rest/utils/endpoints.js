@@ -3,4 +3,5 @@ export const API_ENDPOINTS = {
     FEATURED_CATEGORIES: 'categories/featured',
     PRODUCTS: 'products',
     ALL_BRANDS: 'all-brands',
+    REGISTER: 'signup',
 };

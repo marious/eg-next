@@ -8,11 +8,13 @@ import PageHeader from '~/components/features/page-header';
 import ShopListOne from '~/components/partials/shop/list/shop-list-one';
 import StickyBox from 'react-sticky-box';
 import ShopSidebarOne from '~/components/partials/shop/sidebar/shop-sidebar-one';
+import { useTranslation } from 'react-i18next';
 
 export { getStaticProps } from '~/framework/rest/ssr/products-filter';
 
 export default function Search() {
     const router = useRouter();
+    const { t } = useTranslation('common');
     const query = router.query;
     const [type, setType] = useState('3cols');
     const [perPage, setPerPage] = useState(10);
@@ -20,15 +22,17 @@ export default function Search() {
     const [toggle, setToggle] = useState(false);
     const [firstLoading, setFirstLoading] = useState(false);
 
-    const { data: brands } = useBrandsQuery();
-    const { data: categories } = useFetchCategoriesQuery();
+    const { data: brands } = useBrandsQuery(router.locale);
+    const { data: categories } = useFetchCategoriesQuery(router.locale);
 
     const {
         data: products,
         isLoading: loading,
         error,
     } = useProductsSearchList({
+        locale: router.locale,
         category: query.category ? query.category : '',
+        keyword: query.keyword ? query.keyword : '',
         brand: query.brand ? query.brand.split(',') : [],
         minPrice: parseInt(query.minPrice) ? parseInt(query.minPrice) : '',
         maxPrice: parseInt(query.maxPrice) ? parseInt(query.maxPrice) : '',
@@ -136,7 +140,9 @@ export default function Search() {
 
                                 <div className="toolbox-right">
                                     <div className="toolbox-sort">
-                                        <label htmlFor="sortby">Sort by:</label>
+                                        <label htmlFor="sortby">
+                                            {t('Sort by')} :{' '}
+                                        </label>
                                         <div className="select-custom">
                                             <select
                                                 name="sortby"

@@ -1,7 +1,12 @@
 {
     "Hello": "أهلا ومرحبا",
-    "Arabic":"العربية",
-    "All":"الكل",
-    "English":"English",
-    "Top Selling Products":"أفضل المنتجات مبيعا"
+    "Arabic": "العربية",
+    "All": "الكل",
+    "English": "English",
+    "Top Selling Products": "أفضل المنتجات مبيعا",
+    "Categories": "التصنيفات",
+    "Price": "السعر",
+    "Brands": "الماركات",
+    "Search Product ...": " ... ابحث عن منتج",
+    "Sort by": "رتب حسب"
 }
