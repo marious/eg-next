@@ -97,7 +97,9 @@ function LoginModal() {
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <SignUpForm />
+                                                <SignUpForm
+                                                    closeModal={closeModal}
+                                                />
                                             </TabPanel>
                                         </div>
                                     </Tabs>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +23,7 @@ const defaultValues = {
     password: '',
 };
 
-export default function SignUpForm() {
+export default function SignUpForm({ closeModal }) {
     const router = useRouter();
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('');
@@ -48,11 +49,13 @@ export default function SignUpForm() {
             },
             {
                 onSuccess: data => {
-                    if (data?.token) {
-                        Cookies.set(AUTH_TOKEN, data.token);
+                    if (data?.access_token) {
+                        Cookies.set(AUTH_TOKEN, data.access_token);
                         authorize(true);
+                        closeModal();
+                        return;
                     }
-                    if (!data.token) {
+                    if (!data.access_token) {
                         setErrorMessage('Error credential wrong');
                     }
                 },
@@ -65,7 +68,7 @@ export default function SignUpForm() {
 
     return (
         <>
-            <form action="#">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-group">
                     <label htmlFor="register-email-2">Your Name *</label>
                     <input

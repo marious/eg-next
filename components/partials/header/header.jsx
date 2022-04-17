@@ -10,10 +10,15 @@ import CategoryMenu from '~/components/partials/header/partials/category-menu';
 import MainMenu from '~/components/partials/header/partials/main-menu';
 import StickyHeader from '~/components/features/sticky-header';
 import LanguageSwitcher from '~/components/features/language-switcher';
+import AuthMenu from './partials/auth-menu';
+import { useAtom } from 'jotai';
+import { authorizationAtom } from '~/store/authorization-atom';
+import { ROUTES } from '~/utils/routes';
 
 function Header() {
     const router = useRouter();
     const [containerClass, setContainerClass] = useState('container');
+    const [isAuthorize] = useAtom(authorizationAtom);
 
     function openMobileMenu() {
         document.querySelector('body').classList.add('mmenu-active');
@@ -82,12 +87,31 @@ function Header() {
                     <div className="header-right">
                         <LanguageSwitcher />
                         <div className="account">
-                            <ALink href="/shop/dashboard" title="My account">
+                            {/* <ALink href="/shop/dashboard" title="My account">
                                 <div className="icon">
                                     <i className="icon-user"></i>
                                 </div>
                                 <p>Account</p>
-                            </ALink>
+                            </ALink> */}
+                            <AuthMenu
+                                isAuthorized={isAuthorize}
+                                href={ROUTES.ACCOUNT}
+                                btnProps={{
+                                    className: 'text',
+                                    children: (
+                                        <div className="icon">
+                                            <i className="icon-user">
+                                                Login/Signup
+                                            </i>
+                                        </div>
+                                    ),
+                                }}
+                            >
+                                <div className="icon">
+                                    <i className="icon-user"></i>
+                                </div>
+                                <p>My Account</p>
+                            </AuthMenu>
                         </div>
 
                         <WishlistMenu />
