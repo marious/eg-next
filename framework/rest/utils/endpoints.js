@@ -4,4 +4,6 @@ export const API_ENDPOINTS = {
     PRODUCTS: 'products',
     ALL_BRANDS: 'all-brands',
     REGISTER: 'auth/signup',
+    STATES: 'states/64',
+    CITIES: 'cities',
 };

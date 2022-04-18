@@ -93,25 +93,7 @@ function Header() {
                                 </div>
                                 <p>Account</p>
                             </ALink> */}
-                            <AuthMenu
-                                isAuthorized={isAuthorize}
-                                href={ROUTES.ACCOUNT}
-                                btnProps={{
-                                    className: 'text',
-                                    children: (
-                                        <div className="icon">
-                                            <i className="icon-user">
-                                                Login/Signup
-                                            </i>
-                                        </div>
-                                    ),
-                                }}
-                            >
-                                <div className="icon">
-                                    <i className="icon-user"></i>
-                                </div>
-                                <p>My Account</p>
-                            </AuthMenu>
+                            <AuthMenu isAuthorized={isAuthorize}></AuthMenu>
                         </div>
 
                         <WishlistMenu />
