@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useLazyQuery } from '@apollo/react-hooks';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import ALink from '~/components/features/alink';
 
 import { GET_PRODUCTS } from '~/server/queries';
-import withApollo from '~/server/apollo';
 import { safeContent } from '~/utils';
 import { useProductsSearchList } from '~/framework/rest/products/products.query';
 import { useTranslation } from 'react-i18next';

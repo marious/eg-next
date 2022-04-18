@@ -1,4 +1,3 @@
-// import { useQuery } from "@apollo/react-hooks";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Reveal from 'react-awesome-reveal';
 import Countdown from 'react-countdown';
@@ -11,8 +10,6 @@ import BlogCollection from '~/components/partials/home/blog-collection';
 import NewsletterModal from '~/components/features/modals/newsletter-modal';
 import { rendererThree } from '~/components/features/count-down';
 
-// import withApollo from "~/server/apollo";
-// import { GET_HOME_DATA } from "~/server/queries";
 import { attrFilter } from '~/utils';
 
 import {
