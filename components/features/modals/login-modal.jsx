@@ -93,7 +93,9 @@ function LoginModal() {
                                             <TabPanel
                                                 style={{ paddingTop: '2rem' }}
                                             >
-                                                <LoginForm />
+                                                <LoginForm
+                                                    closeModal={closeModal}
+                                                />
                                             </TabPanel>
 
                                             <TabPanel>

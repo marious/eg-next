@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import SlideToggle from 'react-slide-toggle';
 
@@ -8,9 +8,16 @@ import Card from '~/components/features/accordion/card';
 import PageHeader from '~/components/features/page-header';
 
 import { cartPriceTotal } from '~/utils/index';
+import ShippingDetails from '~/components/checkout/ShippingDetails';
+import userUser from '~/framework/rest/auth/use-user';
+import { shippingAddressAtom } from '~/store/order-atom';
+import { atom, useAtom } from 'jotai';
 
 function Checkout(props) {
     const { cartlist } = props;
+    const { me } = userUser();
+    const [shippingAddress] = useAtom(shippingAddressAtom);
+    const [errorMessage, setErroMessage] = useState(false);
 
     useEffect(() => {
         document.querySelector('body').addEventListener('click', clearOpacity);
@@ -33,6 +40,15 @@ function Checkout(props) {
         e.currentTarget.parentNode
             .querySelector('label')
             .setAttribute('style', 'opacity: 0');
+    }
+
+    function makeOrder() {
+        if (!shippingAddress) {
+            setErroMessage('Please choose Shpping Address');
+            console.log(cartlist);
+            return;
+        } else {
+        }
     }
 
     return (
@@ -74,61 +90,13 @@ function Checkout(props) {
                             </form>
                         </div>
 
-                        <div className="row">
-                            <div className="col-lg-9">
-                                <h2 className="checkout-title">
-                                    Shipping Details
-                                </h2>
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <label>Full Name *</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <label>Email *</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label>Phone *</label>
-                                        <input
-                                            type="tel"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <label>Town / City *</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <label>Street address *</label>
-                                <textarea
-                                    className="form-control"
-                                    cols="30"
-                                    rows="4"
-                                    placeholder="Enter your address"
-                                ></textarea>
+                        {errorMessage && (
+                            <div className="alert alert-danger mt-5 mb-5">
+                                {errorMessage}
                             </div>
+                        )}
+                        <div className="row">
+                            <ShippingDetails userId={me?.id} />
 
                             <aside className="col-lg-3">
                                 <div className="summary">
@@ -206,39 +174,13 @@ function Checkout(props) {
 
                                     <Accordion type="checkout">
                                         <Card
-                                            title="Direct bank transfer"
+                                            title="Cash on delivery"
                                             expanded={true}
                                         >
-                                            Make your payment directly into our
-                                            bank account. Please use your Order
-                                            ID as the payment reference. Your
-                                            order will not be shipped until the
-                                            funds have cleared in our account.
-                                        </Card>
-
-                                        <Card title="Check payments">
-                                            Ipsum dolor sit amet, consectetuer
-                                            adipiscing elit. Donec odio. Quisque
-                                            volutpat mattis eros. Nullam
-                                            malesuada erat ut turpis.
-                                        </Card>
-
-                                        <Card title="Cash on delivery">
                                             Quisque volutpat mattis eros. Lorem
                                             ipsum dolor sit amet, consectetuer
                                             adipiscing elit. Donec odio. Quisque
                                             volutpat mattis eros.
-                                        </Card>
-
-                                        <Card title="PayPal">
-                                            <small className="float-right paypal-link">
-                                                What is PayPal?
-                                            </small>
-                                            Nullam malesuada erat ut turpis.
-                                            Suspendisse urna nibh, viverra non,
-                                            semper suscipit, posuere a, pede.
-                                            Donec nec justo eget felis facilisis
-                                            fermentum.
                                         </Card>
 
                                         <Card title="Credit Card (Stripe)">
@@ -258,6 +200,7 @@ function Checkout(props) {
                                     <button
                                         type="submit"
                                         className="btn btn-outline-primary-2 btn-order btn-block"
+                                        onClick={() => makeOrder()}
                                     >
                                         <span className="btn-text">
                                             Place Order

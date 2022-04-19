@@ -10,5 +10,5 @@ export const fetchCities = async ({ queryKey }) => {
 };
 
 export const useCitiesQuery = (state, locale) => {
-    return useQuery([API_ENDPOINTS, state, locale], fetchCities);
+    return useQuery([API_ENDPOINTS.CITIES, state, locale], fetchCities);
 };

@@ -27,7 +27,7 @@ export async function getStaticProps({ locale }) {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale, ['common'])),
+            ...(await serverSideTranslations(locale, ['common', 'forms'])),
             dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
         },
         revalidate: 120,

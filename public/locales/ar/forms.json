@@ -1,0 +1,7 @@
+{
+    "email-error": "يرجى تقديم عنوان بريد إلكتروني صالح",
+    "email-required": "البريد الإلكتروني مطلوب",
+    "password-required": "كلمة المرور مطلوبة",
+    "name-required": "الاسم مطلوب",
+    "error-credential-wrong": "معلومات الدخول غير صحيحة"
+}

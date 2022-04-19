@@ -49,7 +49,7 @@ export default function SignupModal() {
                     className="icon"
                     onClick={e => {
                         e.preventDefault();
-                        isOpen = true;
+                        setOpen(true);
                     }}
                 >
                     <i className="icon-user"></i>

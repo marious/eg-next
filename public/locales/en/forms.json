@@ -1,0 +1,7 @@
+{
+    "email-error": "Please provide valid email address",
+    "email-required": "Email is required",
+    "password-required": "Password is required",
+    "name-required": "Name is required",
+    "error-credential-wrong": "Invalid credentials"
+}
