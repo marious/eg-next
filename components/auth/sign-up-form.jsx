@@ -52,7 +52,9 @@ export default function SignUpForm({ closeModal }) {
                     if (data?.access_token) {
                         Cookies.set(AUTH_TOKEN, data.access_token);
                         authorize(true);
-                        closeModal();
+                        if (closeModal) {
+                            closeModal();
+                        }
                         return;
                     }
                     if (!data.access_token) {

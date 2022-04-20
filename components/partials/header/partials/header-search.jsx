@@ -4,7 +4,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import ALink from '~/components/features/alink';
 
-import { GET_PRODUCTS } from '~/server/queries';
 import { safeContent } from '~/utils';
 import { useProductsSearchList } from '~/framework/rest/products/products.query';
 import { useTranslation } from 'react-i18next';

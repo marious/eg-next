@@ -11,4 +11,5 @@ export const API_ENDPOINTS = {
     USER: 'auth/user',
     CREATE_ADDRESS: 'user/address/create',
     ADDRESSES: 'user/addresses',
+    ADD_TO_CART: 'carts/add',
 };

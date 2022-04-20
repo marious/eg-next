@@ -191,6 +191,7 @@ export default function ShippingDetails({ userId }) {
         <div className="col-lg-9">
             <div className="row">
                 {!isFetching &&
+                    customerAddresses &&
                     customerAddresses.map(address => (
                         <div
                             className="col-sm-4"

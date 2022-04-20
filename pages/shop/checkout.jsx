@@ -11,13 +11,15 @@ import { cartPriceTotal } from '~/utils/index';
 import ShippingDetails from '~/components/checkout/ShippingDetails';
 import userUser from '~/framework/rest/auth/use-user';
 import { shippingAddressAtom } from '~/store/order-atom';
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
+import { useAddToCartMutation } from '~/framework/rest/cart/cart.query';
 
 function Checkout(props) {
     const { cartlist } = props;
     const { me } = userUser();
     const [shippingAddress] = useAtom(shippingAddressAtom);
     const [errorMessage, setErroMessage] = useState(false);
+    const { mutate: addToCart, isLoading } = useAddToCartMutation();
 
     useEffect(() => {
         document.querySelector('body').addEventListener('click', clearOpacity);
@@ -45,9 +47,16 @@ function Checkout(props) {
     function makeOrder() {
         if (!shippingAddress) {
             setErroMessage('Please choose Shpping Address');
-            console.log(cartlist);
             return;
         } else {
+            const items = cartlist.map(item => {
+                addToCart({
+                    qty: item.qty,
+                    temp_user_id: null,
+                    variation_id: item.variations[0].id,
+                });
+            });
+            console.log('your cartlist items', items);
         }
     }
 
@@ -222,5 +231,5 @@ function Checkout(props) {
 export const mapStateToProps = state => ({
     cartlist: state.cartlist.data,
 });
-
+Checkout.authenticate = true;
 export default connect(mapStateToProps)(Checkout);

@@ -18,9 +18,12 @@ import '~/public/scss/plugins/owl-carousel/owl.carousel.scss';
 import '~/public/scss/style.scss';
 import { useFeaturedCategoriesQuery } from '~/framework/rest/categories/featured-categories-query.js';
 import { getDirection } from '~/utils/get-direction.js';
+import PrivateRoute from '~/containers/private-route.jsx';
 
 const WrappedApp = ({ Component, pageProps }) => {
     const queryClientRef = useRef();
+    const authProps = Component.authenticate;
+
     if (!queryClientRef.current) {
         queryClientRef.current = new QueryClient();
     }
@@ -126,7 +129,15 @@ const WrappedApp = ({ Component, pageProps }) => {
                         </Helmet>
 
                         <Layout>
-                            <div>{getLayout(<Component {...pageProps} />)}</div>
+                            {Boolean(authProps) ? (
+                                <PrivateRoute>
+                                    {getLayout(<Component {...pageProps} />)}
+                                </PrivateRoute>
+                            ) : (
+                                <div>
+                                    {getLayout(<Component {...pageProps} />)}
+                                </div>
+                            )}
                         </Layout>
                     </PersistGate>
                 </Provider>

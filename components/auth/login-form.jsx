@@ -10,6 +10,7 @@ import { ROUTES } from '../../utils/routes';
 import ALink from '~/components/features/alink';
 import { useTranslation } from 'react-i18next';
 import { useLoginMutation } from '~/framework/rest/auth/auth.query';
+import { useRouter } from 'next/router';
 
 const loginFormSchema = yup.object().shape({
     email: yup
@@ -25,7 +26,7 @@ const defaultValues = {
 };
 
 export default function LoginForm({ closeModal }) {
-    // const router = useRouter();
+    const router = useRouter();
     const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState('');
     const [_, authorize] = useAtom(authorizationAtom);
@@ -50,7 +51,12 @@ export default function LoginForm({ closeModal }) {
                             expires: remember_me ? 365 : undefined,
                         });
                         authorize(true);
-                        closeModal();
+                        if (closeModal) {
+                            closeModal();
+                        } else {
+                            return;
+                            //return router.push(ROUTES.ACCOUNT);
+                        }
                         return;
                     }
                     if (!data.access_token) {
