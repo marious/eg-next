@@ -10,7 +10,8 @@ import { useStatesQuery } from '~/framework/rest/states/states.query';
 import { useAddAddressMutation } from '~/framework/rest/address/address.query';
 import { useCustomerAddressesQuery } from '~/framework/rest/customer/customer.query';
 import { useAtom } from 'jotai';
-import { shippingAddressAtom } from '~/store/order-atom';
+import { shippingAddressAtom, shippingAmountAtom } from '~/store/order-atom';
+import request from '~/framework/rest/utils/request';
 
 const addressSchema = yup.object().shape({
     full_name: yup.string().required('error-full-name-required'),
@@ -36,6 +37,8 @@ export default function ShippingDetails({ userId }) {
     const [selectedState, setSelectedState] = useState(null);
     const [selectedShipping, setSelectedShipping] =
         useAtom(shippingAddressAtom);
+
+    const [shippingAmount, setShippingAmount] = useAtom(shippingAmountAtom);
 
     const {
         status,
@@ -63,6 +66,17 @@ export default function ShippingDetails({ userId }) {
         defaultValues,
     });
 
+    // async function hanldeShippingAmount(addressId) {
+    //     console.log('raya:', addressId);
+    //     const { data } = await request.get(
+    //         `checkout/get-shipping-cost/${addressId}`
+    //     );
+    //     if (data.standard_delivery_cost) {
+    //         setShippingAmount(data.standard_delivery_cost);
+    //     } else {
+    //         setShippingAmount('no-shipping');
+    //     }
+    // }
     // useEffect(() => {
     //     if (status === 'success') {
     //         const address = customerAddresses.filter(
@@ -71,6 +85,24 @@ export default function ShippingDetails({ userId }) {
     //         setSelectedShipping(address && address[0].id);
     //     }
     // }, [customerAddresses, selectedShipping]);
+    useEffect(() => {
+        if (selectedShipping == 0) {
+            return;
+        }
+        try {
+            request
+                .get(`checkout/get-shipping-cost/${selectedShipping}`)
+                .then(({ data }) => {
+                    if (data.standard_delivery_cost) {
+                        setShippingAmount(data.standard_delivery_cost);
+                    } else {
+                        setShippingAmount('no-shipping');
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, [selectedShipping]);
 
     function onSubmit({ full_name, state, city, email, phone, address }) {
         createAddress(
@@ -190,7 +222,7 @@ export default function ShippingDetails({ userId }) {
     ) : (
         <div className="col-lg-9">
             <div className="row">
-                {!isFetching &&
+                {!isLoading &&
                     customerAddresses &&
                     customerAddresses.map(address => (
                         <div
@@ -204,9 +236,10 @@ export default function ShippingDetails({ userId }) {
                                     style={{ display: 'block', float: 'right' }}
                                     name="shipping"
                                     value={address.id}
-                                    onChange={() =>
-                                        setSelectedShipping(address.id)
-                                    }
+                                    onChange={() => {
+                                        setSelectedShipping(address.id);
+                                        // hanldeShippingAmount(address.id);
+                                    }}
                                     checked={selectedShipping == address.id}
                                 />
 

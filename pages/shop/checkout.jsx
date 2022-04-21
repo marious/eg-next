@@ -10,14 +10,18 @@ import PageHeader from '~/components/features/page-header';
 import { cartPriceTotal } from '~/utils/index';
 import ShippingDetails from '~/components/checkout/ShippingDetails';
 import userUser from '~/framework/rest/auth/use-user';
-import { shippingAddressAtom } from '~/store/order-atom';
+import { shippingAddressAtom, shippingAmountAtom } from '~/store/order-atom';
 import { useAtom } from 'jotai';
 import { useAddToCartMutation } from '~/framework/rest/cart/cart.query';
+import request from '~/framework/rest/utils/request';
+import axios from 'axios';
+import { API_ENDPOINTS } from '~/framework/rest/utils/endpoints';
 
 function Checkout(props) {
     const { cartlist } = props;
     const { me } = userUser();
     const [shippingAddress] = useAtom(shippingAddressAtom);
+    const [shippingAmount] = useAtom(shippingAmountAtom);
     const [errorMessage, setErroMessage] = useState(false);
     const { mutate: addToCart, isLoading } = useAddToCartMutation();
 
@@ -44,19 +48,79 @@ function Checkout(props) {
             .setAttribute('style', 'opacity: 0');
     }
 
-    function makeOrder() {
+    async function makeOrder() {
         if (!shippingAddress) {
             setErroMessage('Please choose Shpping Address');
             return;
+        } else if (shippingAmount === 'no-shipping') {
+            setErroMessage('Shipping Region Not Supported');
+            return;
         } else {
-            const items = cartlist.map(item => {
-                addToCart({
-                    qty: item.qty,
-                    temp_user_id: null,
-                    variation_id: item.variations[0].id,
+            async function promises() {
+                const ids = [];
+                const unresolved = cartlist.map(async item => {
+                    const cartData = {
+                        qty: item.qty,
+                        temp_user_id: null,
+                        variation_id: item.variations[0].id,
+                    };
+
+                    try {
+                        const resp = await request.post(
+                            API_ENDPOINTS.ADD_TO_CART,
+                            cartData
+                        );
+                        ids.push(resp.data.data.cart_id);
+                    } catch (error) {
+                        console.log(error);
+                    }
                 });
-            });
-            console.log('your cartlist items', items);
+
+                const resolved = await Promise.all(unresolved);
+
+                try {
+                    const responseCart = await request.post(
+                        API_ENDPOINTS.CREATE_ORDER,
+                        {
+                            shipping_address_id: shippingAddress,
+                            billing_address_id: shippingAddress,
+                            cart_item_ids: ids,
+                            delivery_type: 'standard',
+                            payment_type: 'cache_on_delivery',
+                        }
+                    );
+                    console.log(responseCart.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            promises();
+            // async function promises() {
+            //     const ids = [];
+            //     const unresolved = cartlist.map(async item => {
+            //         const res = addToCart(
+            //             {
+            //                 qty: item.qty,
+            //                 temp_user_id: null,
+            //                 variation_id: item.variations[0].id,
+            //             },
+            //             {
+            //                 onSuccess: data => {
+            //                     console.log('card_id', data.data.cart_id);
+            //                     ids.push(data.data.cart_id);
+            //                 },
+            //             }
+            //         );
+            //         return ids;
+            //     });
+
+            //     const resolved = await Promise.all(unresolved);
+
+            //     console.log(resolved);
+            // }
+
+            // promises();
         }
     }
 
@@ -161,21 +225,38 @@ function Checkout(props) {
                                             </tr>
                                             <tr>
                                                 <td>Shipping:</td>
-                                                <td>Free Shipping</td>
+                                                <td>
+                                                    {shippingAmount == 0
+                                                        ? 'Free Shipping'
+                                                        : shippingAmount}
+                                                </td>
                                             </tr>
                                             <tr className="summary-total">
                                                 <td>Total:</td>
                                                 <td>
                                                     $
-                                                    {cartPriceTotal(
-                                                        cartlist
-                                                    ).toLocaleString(
-                                                        undefined,
-                                                        {
-                                                            minimumFractionDigits: 2,
-                                                            maximumFractionDigits: 2,
-                                                        }
-                                                    )}
+                                                    {shippingAmount !==
+                                                    'no-shipping'
+                                                        ? (
+                                                              cartPriceTotal(
+                                                                  cartlist
+                                                              ) + shippingAmount
+                                                          ).toLocaleString(
+                                                              undefined,
+                                                              {
+                                                                  minimumFractionDigits: 2,
+                                                                  maximumFractionDigits: 2,
+                                                              }
+                                                          )
+                                                        : cartPriceTotal(
+                                                              cartlist
+                                                          ).toLocaleString(
+                                                              undefined,
+                                                              {
+                                                                  minimumFractionDigits: 2,
+                                                                  maximumFractionDigits: 2,
+                                                              }
+                                                          )}
                                                 </td>
                                             </tr>
                                         </tbody>

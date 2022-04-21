@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { CartService } from './cart.service';
 
 export const useAddToCartMutation = () => {
