@@ -4,12 +4,11 @@ import Reveal from 'react-awesome-reveal';
 import { useQuery } from 'react-query';
 import ALink from '~/components/features/alink';
 import OwlCarousel from '~/components/features/owl-carousel';
+import request from '~/framework/rest/utils/request';
 import { introSlider, fadeInUpShorter } from '~/utils/data';
 
 async function getSliders() {
-    const { data } = await axios.get(
-        'http://egshop.test/api/v1/setting/home/sliders'
-    );
+    const { data } = await request.get('setting/home/sliders');
     return data.data;
 }
 
