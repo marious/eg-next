@@ -51,6 +51,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "eslint": "^8.14.0",
     "redux-devtools-extension": "^2.13.9"
   }
 }
