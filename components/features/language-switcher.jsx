@@ -36,20 +36,20 @@ export default function LanguageSwitcher() {
                     const switchLang = locale == 'ar' ? 'en' : 'ar';
                     handleItemClick(switchLang);
                 }}
+                className="lang-flag"
             >
-                {locale == 'ar' ? 'English' : 'العربية'}
+                {locale == 'ar' ? (
+                    <>
+                        <span>English</span>
+                        <img src="images/gb.svg" />
+                    </>
+                ) : (
+                    <>
+                        <span>العربية</span>
+                        <img src="images/eg.svg" />
+                    </>
+                )}
             </a>
-            {/* )} */}
-            {/* {selectedItem.value == 'ar' && (
-                <a
-                    onClick={e => {
-                        e.preventDefault();
-                        handleItemClick('en');
-                    }}
-                >
-                    English
-                </a>
-            )} */}
         </div>
         // <div className="header-dropdown">
         //     <div className="header-menu">

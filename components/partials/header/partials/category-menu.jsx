@@ -1,16 +1,20 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 
 import ALink from '~/components/features/alink';
 import { useFeaturedCategoriesQuery } from '~/framework/rest/categories/featured-categories-query';
 
 function CategoryMenu() {
-    const query = useRouter().query;
+    const router = useRouter();
+    const query = router.query;
+    const locale = router.locale;
+    const { t } = useTranslation('common');
 
     const {
         data: categories,
         isLoading,
         isError,
-    } = useFeaturedCategoriesQuery({ limit: 5 });
+    } = useFeaturedCategoriesQuery({ limit: 5, locale });
 
     return (
         <div className="dropdown category-dropdown">
@@ -19,7 +23,7 @@ function CategoryMenu() {
                 className="dropdown-toggle"
                 title="Browse Categories"
             >
-                Browse Categories
+                {t('Browse Categories')}
             </ALink>
 
             <div className="dropdown-menu">
@@ -36,7 +40,7 @@ function CategoryMenu() {
                                     }
                                 >
                                     <ALink
-                                        href="/shop/sidebar/3cols?category=electronics"
+                                        href={`/search?category=${category.slug}`}
                                         scroll={false}
                                     >
                                         {category.name}

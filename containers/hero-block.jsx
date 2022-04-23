@@ -42,7 +42,7 @@ export default function HeroBlock() {
                 ) : (
                     slides.one &&
                     slides.one.map((slide, index) => (
-                        <Link href={slide.link} key={index}>
+                        <Link href="/search" key={index}>
                             <a>
                                 <div
                                     className="intro-slide slide"

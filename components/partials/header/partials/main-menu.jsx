@@ -55,7 +55,9 @@ function MainMenu() {
                                 <ul>
                                     {category.children.data.map(item => (
                                         <li key={item.slug}>
-                                            <ALink href="/pages/contact">
+                                            <ALink
+                                                href={`/search?category=${item.slug}`}
+                                            >
                                                 {item.name}
                                             </ALink>
                                         </li>
