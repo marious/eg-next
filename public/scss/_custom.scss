@@ -745,3 +745,297 @@ div.intro-slide {
         }
     }
 }
+
+.fw-700 {
+    font-weight: 700;
+}
+.align-end {
+    align-items: flex-end !important;
+}
+
+.order-header {
+    border-color: #edf2f7;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+.order-list-item {
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    letter-spacing: normal;
+    min-height: 48px;
+    outline: none;
+    padding: 0 16px;
+    position: relative;
+    text-decoration: none;
+    div {
+        align-items: center;
+        align-self: center;
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1 1;
+        overflow: hidden;
+    }
+}
+.order-sheet-style {
+    .card {
+        z-index: 0;
+        background-color: #eceff1;
+        padding-bottom: 20px;
+        margin-top: 90px;
+        margin-bottom: 90px;
+        border-radius: 10px;
+    }
+
+    .top {
+        padding-top: 40px;
+        padding-left: 9% !important;
+        padding-right: 13% !important;
+    }
+
+    #progressbar {
+        margin-bottom: 30px;
+        overflow: hidden;
+        color: #455a64;
+        padding-left: 0px;
+        margin-top: 30px;
+    }
+
+    #progressbar li {
+        list-style-type: none;
+        font-size: 13px;
+        width: 20%;
+        float: left;
+        position: relative;
+        font-weight: 400;
+    }
+
+    #progressbar .step0:before {
+        font-family: 'Line Awesome Free';
+        content: '\f00c';
+        color: #fff;
+        font-weight: 900;
+    }
+
+    #progressbar li:before {
+        width: 40px;
+        height: 40px;
+        line-height: 45px;
+        display: block;
+        font-size: 20px;
+        background: #c5cae9;
+        border-radius: 50%;
+        margin: auto;
+        padding: 0px;
+    }
+
+    #progressbar li:after {
+        content: '';
+        width: 151%;
+        height: 12px;
+        background: #c5cae9;
+        position: absolute;
+        left: 0;
+        top: 16px;
+        z-index: -1;
+    }
+
+    #progressbar li:last-child:after {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position: absolute;
+        left: -91%;
+    }
+
+    #progressbar li:nth-child(2):after,
+    #progressbar li:nth-child(3):after {
+        left: -50%;
+    }
+
+    #progressbar li:first-child:after {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        position: absolute;
+        left: 50%;
+    }
+
+    #progressbar li:last-child:after {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    #progressbar li:first-child:after {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    #progressbar li.active:before,
+    #progressbar li.active:after {
+        background: #651fff;
+    }
+
+    #progressbar li.active:before {
+        font-family: 'Line Awesome Free';
+        content: '\f00c';
+        font-weight: 900;
+    }
+
+    .icon {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    .icon-content {
+        padding-bottom: 20px;
+    }
+
+    @media screen and (max-width: 992px) {
+        .icon-content {
+            width: 50%;
+        }
+    }
+}
+
+.order-data-wrapper {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.5;
+    max-width: 100%;
+
+    .order-data-table {
+        width: 100%;
+        border-spacing: 0;
+
+        tbody > tr > td,
+        tbody > tr > th,
+        tfoot > tr > td,
+        tfoot > tr > th,
+        thead > tr > td,
+        thead > tr > th {
+            padding: 12px 16px;
+        }
+        thead > tr:last-child > th {
+            border-bottom: 1px solid #eee;
+        }
+        tbody tr:hover {
+            background-color: #eee;
+        }
+    }
+    .text-start {
+        text-align: start;
+    }
+    .size-70px {
+        height: 70px !important;
+        width: 70px !important;
+    }
+    .fw-600 {
+        font-weight: 600 !important;
+    }
+    .text-truncate-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .ms-4 {
+        margin-left: 16px !important;
+    }
+}
+[dir='rtl'] .order-data-wrapper .ms-4 {
+    margin-right: 16px !important;
+}
+
+.v-list-item {
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    letter-spacing: normal;
+    min-height: 48px;
+    outline: none;
+    padding: 0 16px;
+    position: relative;
+    text-decoration: none;
+}
+.v-list-item__content {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1;
+    overflow: hidden;
+    padding: 12px 0;
+}
+.justify-end {
+    justify-content: flex-end !important;
+}
+.align-end {
+    align-items: flex-end !important;
+}
+
+#app.v-application .border-gray-200,
+.border-gray-200 {
+    border-color: #edf2f7 !important;
+    background-color: #f5f5f5 !important;
+}
+
+#app.v-application .border-gray-200,
+.border-gray-200 {
+    border-color: #edf2f7 !important;
+}
+.v-application .grey.lighten-4 {
+    background-color: #f5f5f5 !important;
+}
+.v-application .rounded {
+    border-radius: 4px !important;
+}
+
+.ring-container {
+    height: 100vh;
+}
+
+.ring1 {
+    border: 20px solid rgb(211, 211, 211);
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    border-radius: 50%;
+    border-top: 20px solid grey;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.react-tel-input .form-control {
+    width: 100% !important;
+}
+
+.data-table {
+    border: 1px solid #eee;
+    padding: 12px 16px;
+    border-radius: 4px;
+
+    table {
+        width: 100%;
+        border-spacing: 0;
+        th,
+        td {
+            border-bottom: thin solid rgba(0, 0, 0, 0.12);
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+    }
+}

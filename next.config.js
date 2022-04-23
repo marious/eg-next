@@ -2,10 +2,7 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = {
     i18n,
-    basePath:
-        process.env.NODE_ENV === 'production'
-            ? `/${process.env.NEXT_PUBLIC_DEMO}`
-            : '',
+    basePath: process.env.NODE_ENV === 'production' ? '' : '',
     trailingSlash: true,
     env: {
         PUBLIC_URL: process.env.NODE_ENV === 'production' ? `/` : '/',

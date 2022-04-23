@@ -98,7 +98,7 @@ function Home() {
                                             from $19.99
                                         </div>
                                         <ALink
-                                            href="/shop/sidebar/list"
+                                            href="/search"
                                             className="btn btn-outline-gray banner-link"
                                         >
                                             Shop Now
@@ -139,7 +139,7 @@ function Home() {
                                             from $39.99
                                         </div>
                                         <ALink
-                                            href="/shop/sidebar/list"
+                                            href="/search"
                                             className="btn btn-outline-white banner-link"
                                         >
                                             Discover Now
@@ -179,7 +179,7 @@ function Home() {
                                                     Home Decor
                                                 </h3>
                                                 <ALink
-                                                    href="/shop/sidebar/list"
+                                                    href="/search"
                                                     className="btn btn-outline-gray banner-link"
                                                 >
                                                     Discover Now
@@ -213,7 +213,7 @@ function Home() {
                                                     up to 30% off
                                                 </div>
                                                 <ALink
-                                                    href="/shop/sidebar/list"
+                                                    href="/search"
                                                     className="btn btn-outline-gray banner-link"
                                                 >
                                                     Shop Now
@@ -271,7 +271,7 @@ function Home() {
                                             </div>
 
                                             <ALink
-                                                href="/shop/sidebar/list"
+                                                href="/search"
                                                 className="btn btn-primary"
                                             >
                                                 <span>Shop Now</span>
@@ -332,7 +332,7 @@ function Home() {
                                         $49.99
                                     </div>
                                     <ALink
-                                        href="/shop/sidebar/3cols"
+                                        href="/search"
                                         className="btn btn-outline-light banner-link"
                                     >
                                         Shop Now

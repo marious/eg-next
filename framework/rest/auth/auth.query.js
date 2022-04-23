@@ -8,3 +8,11 @@ export const useRegisterMutation = input => {
 export const useLoginMutation = () => {
     return useMutation(input => AuthService.login(input));
 };
+
+export const useRegisterShopMutation = () => {
+    return useMutation(input => AuthService.registerShop(input));
+};
+
+export const useLogoutMutation = () => {
+    return useMutation(() => AuthService.logout());
+};

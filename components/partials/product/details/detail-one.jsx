@@ -63,8 +63,10 @@ function DetailOne(props) {
             );
         }
 
-        if (product.is_variant && product.variations.length == 0) {
-            min = product.base_price ? product.base_price : product.base_price;
+        if (product.is_variant == 0) {
+            min = product.base_discounted_price
+                ? product.base_discounted_price
+                : product.base_price;
             max = product.base_price;
         }
 
@@ -256,7 +258,7 @@ function DetailOne(props) {
         if (e.currentTarget.classList.contains('btn-disabled')) return;
 
         let newProduct = { ...product };
-        if (product.variants.length > 0) {
+        if (product.is_variant) {
             newProduct = {
                 ...product,
                 name:
@@ -302,7 +304,7 @@ function DetailOne(props) {
                 </div>
             ) : minPrice == maxPrice ? (
                 <div className="product-price">${minPrice.toFixed(2)}</div>
-            ) : product.is_variant && product.variations.length == 0 ? (
+            ) : product.is_variant == 0 ? (
                 <div className="product-price">
                     <span className="new-price">${minPrice.toFixed(2)}</span>
                     <span className="old-price">${maxPrice.toFixed(2)}</span>

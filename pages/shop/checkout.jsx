@@ -6,6 +6,7 @@ import ALink from '~/components/features/alink';
 import Accordion from '~/components/features/accordion/accordion';
 import Card from '~/components/features/accordion/card';
 import PageHeader from '~/components/features/page-header';
+import { actions as cartAction } from '~/store/cart';
 
 import { cartPriceTotal } from '~/utils/index';
 import ShippingDetails from '~/components/checkout/ShippingDetails';
@@ -16,10 +17,12 @@ import { useAddToCartMutation } from '~/framework/rest/cart/cart.query';
 import request from '~/framework/rest/utils/request';
 import axios from 'axios';
 import { API_ENDPOINTS } from '~/framework/rest/utils/endpoints';
+import { useRouter } from 'next/router';
 
 function Checkout(props) {
     const { cartlist } = props;
     const { me } = userUser();
+    const router = useRouter();
     const [shippingAddress] = useAtom(shippingAddressAtom);
     const [shippingAmount] = useAtom(shippingAmountAtom);
     const [errorMessage, setErroMessage] = useState(false);
@@ -89,13 +92,16 @@ function Checkout(props) {
                             payment_type: 'cache_on_delivery',
                         }
                     );
-                    console.log(responseCart.data);
+                    props.clearCart();
+                    router.push(`/orders/${responseCart.data.order_code}`);
                 } catch (error) {
                     console.log(error);
                 }
             }
 
             promises();
+
+            // clear cart
             // async function promises() {
             //     const ids = [];
             //     const unresolved = cartlist.map(async item => {
@@ -313,4 +319,4 @@ export const mapStateToProps = state => ({
     cartlist: state.cartlist.data,
 });
 Checkout.authenticate = true;
-export default connect(mapStateToProps)(Checkout);
+export default connect(mapStateToProps, { ...cartAction })(Checkout);

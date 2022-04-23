@@ -7,10 +7,13 @@ import PageHeader from '~/components/features/page-header';
 
 import { actions as cartAction } from '~/store/cart';
 import { cartPriceTotal } from '~/utils/index';
+import request from '~/framework/rest/utils/request';
 
 function Cart(props) {
     const [cartList, setCartList] = useState([]);
     const [shippingCost, setShippingCost] = useState(0);
+    const [coupon, setCoupon] = useState(false);
+    const [couponErrorMessage, setCouponErrorMessage] = useState('');
 
     useEffect(() => {
         setCartList(props.cartItems);
@@ -49,6 +52,18 @@ function Cart(props) {
                 .querySelector('.icon-refresh')
                 .classList.remove('load-more-rotating');
         }, 400);
+    }
+
+    function handleCoupon() {
+        if (coupon) {
+            request.post('checkout/coupon/apply', coupon).then(function (data) {
+                if (data.data.success == false) {
+                    setCouponErrorMessage(data.data.message);
+                } else {
+                    setCouponErrorMessage('');
+                }
+            });
+        }
     }
 
     return (
@@ -197,16 +212,29 @@ function Cart(props) {
                                                         className="form-control"
                                                         required
                                                         placeholder="coupon code"
+                                                        onChange={e =>
+                                                            setCoupon(
+                                                                e.target.value.trim()
+                                                            )
+                                                        }
                                                     />
                                                     <div className="input-group-append">
                                                         <button
                                                             className="btn btn-outline-primary-2"
-                                                            type="submit"
+                                                            type="button"
+                                                            onClick={() =>
+                                                                handleCoupon()
+                                                            }
                                                         >
                                                             <i className="icon-long-arrow-right"></i>
                                                         </button>
                                                     </div>
                                                 </div>
+                                                {couponErrorMessage && (
+                                                    <p className="text-danger">
+                                                        {couponErrorMessage}
+                                                    </p>
+                                                )}
                                             </form>
                                         </div>
 

@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
 import { authorizationAtom } from '~/store/authorization-atom';
 import { AUTH_TOKEN } from '../../utils/constants';
-import { ROUTES } from '../../utils/routes';
 import ALink from '~/components/features/alink';
 import { useTranslation } from 'react-i18next';
 import { useLoginMutation } from '~/framework/rest/auth/auth.query';

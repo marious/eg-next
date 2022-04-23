@@ -8,6 +8,7 @@ export const actionTypes = {
     removeFromCart: 'REMOVE_FROM_CART',
     refreshStore: 'REFRESH_STORE',
     updateCart: 'UPDATE_CART',
+    clearCart: 'CLEAR_CART',
 };
 
 const initialState = {
@@ -21,10 +22,7 @@ const cartReducer = (state = initialState, action) => {
                 item => item.id == action.payload.product.id
             );
             let qty = action.payload.qty ? action.payload.qty : 1;
-            if (
-                findIndex !== -1 &&
-                action.payload.product.variants.length > 0
-            ) {
+            if (findIndex !== -1 && action.payload.product.is_variant) {
                 findIndex = state.data.findIndex(
                     item => item.name == action.payload.product.name
                 );
@@ -91,6 +89,10 @@ const cartReducer = (state = initialState, action) => {
             return {
                 data: [...action.payload.cartItems],
             };
+        case actionTypes.clearCart:
+            return {
+                data: [],
+            };
         case actionTypes.refreshStore:
             return initialState;
 
@@ -119,6 +121,12 @@ export const actions = {
         type: actionTypes.updateCart,
         payload: {
             cartItems: cartItems,
+        },
+    }),
+    clearCart: () => ({
+        type: actionTypes.clearCart,
+        payload: {
+            cartItems: [],
         },
     }),
 };

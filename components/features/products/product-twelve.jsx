@@ -22,13 +22,15 @@ function ProductTwelve(props) {
         let min = minPrice;
         let max = maxPrice;
         product.variations.map(item => {
-            if (min > item.price) min = item.price;
-            if (max < item.price) max = item.price;
+            if (min > item.base_price) min = item.base_price;
+            if (max < item.base_price) max = item.base_price;
         }, []);
 
-        if (product.is_variant && product.variations.length == 0) {
-            min = product.sale_price ? product.sale_price : product.price;
-            max = product.price;
+        if (product.is_variant == 0) {
+            min = product.base_discounted_price
+                ? product.base_discounted_price
+                : product.base_price;
+            max = product.base_price;
         }
 
         setMinPrice(min);
@@ -72,7 +74,7 @@ function ProductTwelve(props) {
                     ''
                 )}
 
-                {product.sale_price ? (
+                {product.base_discounted_price < product.base_price ? (
                     <span className="product-label label-circle label-sale">
                         Sale
                     </span>
@@ -153,7 +155,7 @@ function ProductTwelve(props) {
                         <React.Fragment key={item + '-' + index}>
                             <ALink
                                 href={{
-                                    pathname: '/shop/sidebar/list',
+                                    pathname: '/',
                                     query: { category: item },
                                 }}
                             >
@@ -173,12 +175,12 @@ function ProductTwelve(props) {
                 {!product.stock || product.stock == 0 ? (
                     <div className="product-price">
                         <span className="out-price">
-                            ${product.price.toFixed(2)}
+                            ${product.base_price.toFixed(2)}
                         </span>
                     </div>
                 ) : minPrice == maxPrice ? (
                     <div className="product-price">${minPrice.toFixed(2)}</div>
-                ) : product.variations.length == 0 ? (
+                ) : product.is_variant == 0 ? (
                     <div className="product-price">
                         <span className="new-price">
                             ${minPrice.toFixed(2)}

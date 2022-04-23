@@ -8,9 +8,13 @@ export const API_ENDPOINTS = {
     AUTH: 'auth',
     REGISTER: 'auth/signup',
     LOGIN: 'auth/login',
+    LOGOUT: 'auth/logout',
     USER: 'auth/user',
     CREATE_ADDRESS: 'user/address/create',
     ADDRESSES: 'user/addresses',
     ADD_TO_CART: 'carts/add',
     CREATE_ORDER: 'checkout/order/store',
+    ORDER: 'user/order',
+    REGISTER_SHOP: 'shop/register',
+    USER_ORDERS: 'user/orders',
 };

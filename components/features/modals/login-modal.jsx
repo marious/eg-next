@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import LoginForm from '~/components/auth/login-form';
 import SignUpForm from '~/components/auth/sign-up-form';
+import ALink from '../alink';
 
 const customStyles = {
     overlay: {
@@ -44,9 +45,9 @@ function LoginModal() {
 
     return (
         <li>
-            <a href="#" onClick={openModal}>
-                Sign in / Sign up
-            </a>
+            <ALink href="/register-shop" className="forgot-link">
+                Be a seller
+            </ALink>
             {open ? (
                 <Modal
                     isOpen={open}
