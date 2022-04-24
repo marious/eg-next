@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Tabs } from 'react-tabs';
 
 import OwlCarousel from '~/components/features/owl-carousel';
@@ -7,11 +8,12 @@ import { useLatestProductsQuery } from '~/framework/rest/products/latest-product
 import { productSlider } from '~/utils/data';
 
 function SpecialCollection() {
+    const { locale } = useRouter();
     const {
         data: products,
         isLoading,
         isError,
-    } = useLatestProductsQuery({ limit: 15 });
+    } = useLatestProductsQuery({ limit: 15, locale });
 
     return (
         <>

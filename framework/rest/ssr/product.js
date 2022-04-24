@@ -1,6 +1,7 @@
 import { QueryClient } from 'react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { fetchProduct, fetchRelatedProducts } from '../products/products.query';
+import { useRouter } from 'next/router';
 
 export async function getStaticPaths() {
     return {
@@ -13,7 +14,7 @@ export const getStaticProps = async ({ params, locale }) => {
     const slug = params.slug;
 
     try {
-        const product = await fetchProduct(slug);
+        const product = await fetchProduct(slug, locale);
         return {
             props: {
                 product,

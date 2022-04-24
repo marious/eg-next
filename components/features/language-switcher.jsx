@@ -12,12 +12,7 @@ export default function LanguageSwitcher() {
         { name: 'Arabic', value: 'ar' },
     ];
     const { asPath, locale } = router;
-    console.log('locale is ', locale);
-    // const currentSelectedItem = locale
-    //     ? options.find(function (o) {
-    //           return o.value === locale;
-    //       })
-    //     : options[2];
+
     const [selectedItem, setSelectedItem] = useState(locale);
 
     function handleItemClick(value) {

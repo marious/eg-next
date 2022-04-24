@@ -16,7 +16,7 @@ function TopCollection() {
         data: products,
         isLoading: loading,
         isError,
-    } = useLatestProductsQuery({ limit: 10 });
+    } = useLatestProductsQuery({ limit: 10, locale });
     const { data: categories, isLoading: loadingCategories } =
         useFeaturedCategoriesQuery({ locale });
 

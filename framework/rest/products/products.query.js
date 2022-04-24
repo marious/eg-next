@@ -17,13 +17,13 @@ export const fetchProducts = async () => {
     return data;
 };
 
-export const fetchProduct = async slug => {
-    const { data } = await ProductService.findOne(slug);
+export const fetchProduct = async (slug, locale = 'en') => {
+    const { data } = await ProductService.findOne(slug, locale);
     return data.data;
 };
 
-export const fetchRelatedProducts = async id => {
-    const { data } = await ProductService.findRelated(id);
+export const fetchRelatedProducts = async (id, locale = 'en') => {
+    const { data } = await ProductService.findRelated(id, locale);
     return data.data;
 };
 

@@ -1,12 +1,13 @@
 import pickBy from 'lodash/pickBy';
 import Request, { makeGet } from './request';
+import Cookies from 'js-cookie';
 
 export class CoreApi {
     http = Request;
 
-    constructor(_base_path, locale = 'en') {
+    constructor(_base_path, locale = 'ar') {
         this._base_path = _base_path;
-        this.locale = locale;
+        this.locale = Cookies.get('locale') ? Cookies.get('locale') : locale;
     }
 
     stringifySearchValue(values) {
@@ -63,23 +64,23 @@ export class CoreApi {
         return makeGet(this._base_path + queryString, locale);
     }
 
-    findAll() {
-        return makeGet(this._base_path);
+    findAll(locale = 'en') {
+        return makeGet(this._base_path, locale);
     }
 
-    fetchUrl(url) {
-        return makeGet(url);
+    fetchUrl(url, locale = 'en') {
+        return makeGet(url, locale);
     }
 
     postUrl(url, data) {
         return this.http.post(url, data);
     }
 
-    findOne(id) {
-        return makeGet(`${this._base_path}/${id}`);
+    findOne(id, locale = 'en') {
+        return makeGet(`${this._base_path}/${id}`, locale);
     }
-    findRelated(id) {
-        return makeGet(`${this._base_path}/related/${id}`);
+    findRelated(id, locale = 'en') {
+        return makeGet(`${this._base_path}/related/${id}`, locale);
     }
 
     create(data, options = {}) {
