@@ -2,13 +2,18 @@ import ALink from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useBrandsQuery } from '~/framework/rest/brand/brands.query';
-import { useFetchCategoriesQuery } from '~/framework/rest/categories/featured-categories-query';
+import {
+    useFetchCategoriesQuery,
+    useFetchChildCategories,
+} from '~/framework/rest/categories/featured-categories-query';
 import { useProductsSearchList } from '~/framework/rest/products/products.query';
 import PageHeader from '~/components/features/page-header';
 import ShopListOne from '~/components/partials/shop/list/shop-list-one';
 import StickyBox from 'react-sticky-box';
 import ShopSidebarOne from '~/components/partials/shop/sidebar/shop-sidebar-one';
 import { useTranslation } from 'react-i18next';
+import OwlCarousel from '~/components/features/owl-carousel';
+import { brandSlider } from '~/utils/data';
 
 export { getStaticProps } from '~/framework/rest/ssr/products-filter';
 
@@ -24,6 +29,10 @@ export default function Search() {
 
     const { data: brands } = useBrandsQuery(router.locale);
     const { data: categories } = useFetchCategoriesQuery(router.locale);
+
+    // if (query.category) {
+    const { data: childCategories, isLoading: childCategoriesLoading } =
+        useFetchChildCategories(query.category, router.locale);
 
     const {
         data: products,
@@ -91,7 +100,43 @@ export default function Search() {
 
     return (
         <main className="main shop">
-            <PageHeader title={pageTitle} subTitle="Shop" />
+            <PageHeader title={pageTitle} subTitle="Shop">
+                {childCategoriesLoading ? (
+                    [0, 1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+                        <div className="col-4" key={index}>
+                            <div className="skel-pro"></div>
+                        </div>
+                    ))
+                ) : (
+                    <OwlCarousel
+                        adClass="owl-simple carousel-with-shadow cols-xxl-6 cols-xl-5 cols-lg-4 cols-md-3 cols-xs-2"
+                        options={brandSlider}
+                    >
+                        {childCategories &&
+                            childCategories.map((item, index) => (
+                                <div
+                                    key={item.id}
+                                    className="child-category-wrapper"
+                                >
+                                    <a
+                                        href={`/search?category=${item.slug}`}
+                                        className="child-element"
+                                    >
+                                        {item.banner && (
+                                            <div
+                                                className="child-img"
+                                                style={{
+                                                    backgroundImage: `url(${item.banner})`,
+                                                }}
+                                            ></div>
+                                        )}
+                                        <h3>{item.name}</h3>
+                                    </a>
+                                </div>
+                            ))}
+                    </OwlCarousel>
+                )}
+            </PageHeader>
             <nav className="breadcrumb-nav mb-2">
                 <div className="container">
                     <ol className="breadcrumb">

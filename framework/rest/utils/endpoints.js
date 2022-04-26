@@ -1,6 +1,7 @@
 export const API_ENDPOINTS = {
     LATEST_PRODUCTS: 'product/latest',
     FEATURED_CATEGORIES: 'categories/featured',
+    CHILD_CATEGORIES: 'categories/child-categories',
     PRODUCTS: 'products',
     ALL_BRANDS: 'all-brands',
     STATES: 'states/64',

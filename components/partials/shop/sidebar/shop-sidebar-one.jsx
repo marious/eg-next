@@ -276,7 +276,7 @@ function ShopSidebarOne(props) {
                                                     formatLabel={value =>
                                                         `$${value}`
                                                     }
-                                                    maxValue={10000}
+                                                    maxValue={100000}
                                                     minValue={0}
                                                     step={100}
                                                     value={priceRange}

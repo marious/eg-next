@@ -1,15 +1,22 @@
 import React from 'react';
 
-function PageHeader ( props ) {
+function PageHeader(props) {
     const { title, subTitle } = props;
 
     return (
-        <div className="page-header text-center" style={ { backgroundImage: `url(images/page-header-bg.jpg)` } } >
+        <div
+            className="page-header text-center"
+            style={{ backgroundImage: `url(images/page-header-bg.jpg)` }}
+        >
             <div className="container">
-                <h1 className="page-title">{ title }<span>{ subTitle }</span></h1>
+                <h1 className="page-title">
+                    {title}
+                    <span>{subTitle}</span>
+                </h1>
+                {props.children}
             </div>
         </div>
     );
 }
 
-export default React.memo( PageHeader );
+export default React.memo(PageHeader);

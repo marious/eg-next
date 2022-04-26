@@ -1053,3 +1053,28 @@ div.intro-slide {
         display: inline-block;
     }
 }
+
+.child-category-wrapper {
+    margin-right:10px;
+    .child-element {
+         display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 5px 4px 5px;
+        background:#fff;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+   .child-img {
+       width: 80px;
+       height: 80px;
+       background-repeat: no-repeat;
+       background-size: contain;
+   }
+    h3 {
+        font-size: 18px;
+        padding-top: 10px;
+        padding-bottom: 0;
+        color: #a6c76c;
+    }
+}
