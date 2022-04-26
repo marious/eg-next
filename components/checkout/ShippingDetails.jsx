@@ -12,6 +12,7 @@ import { useCustomerAddressesQuery } from '~/framework/rest/customer/customer.qu
 import { useAtom } from 'jotai';
 import { shippingAddressAtom, shippingAmountAtom } from '~/store/order-atom';
 import request from '~/framework/rest/utils/request';
+import PageLoader from '../PageLoader';
 
 const addressSchema = yup.object().shape({
     full_name: yup.string().required('error-full-name-required'),
@@ -33,7 +34,7 @@ const defaultValues = {
 
 export default function ShippingDetails({ userId }) {
     const { locale } = useRouter();
-    const { t } = useTranslation();
+    const { t } = useTranslation('common');
     const [selectedState, setSelectedState] = useState(null);
     const [selectedShipping, setSelectedShipping] =
         useAtom(shippingAddressAtom);
@@ -215,15 +216,26 @@ export default function ShippingDetails({ userId }) {
                     {...register('address')}
                 ></textarea>
                 <button type="submit" className="btn btn-outline-primary-2">
-                    Save
+                    {t('Save')}
                 </button>
+                <a
+                    href="#"
+                    className="btn btn-outline-danger mx-5"
+                    onClick={e => {
+                        e.preventDefault();
+                        setNewAddress(false);
+                    }}
+                >
+                    {t('Cancel')}
+                </a>
             </form>
         </div>
     ) : (
         <div className="col-lg-9">
             <div className="row">
-                {!isLoading &&
-                    customerAddresses &&
+                {loadingCustomerAddresses ? (
+                    <PageLoader />
+                ) : (
                     customerAddresses.map(address => (
                         <div
                             className="col-sm-4"
@@ -252,7 +264,8 @@ export default function ShippingDetails({ userId }) {
                                 </ul>
                             </div>
                         </div>
-                    ))}
+                    ))
+                )}
 
                 <div className="col-sm-4">
                     <div className="new-address">

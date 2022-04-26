@@ -33,5 +33,8 @@
     "Confirmed": "مؤكدة",
     "Processed": "المعالجة",
     "Shipped": "مشحونه",
-    "Delivered": "تم توصيلها"
+    "Delivered": "تم توصيلها",
+    "Save":"حفظ",
+    "Cancel":"غلق",
+    "Be A Seller":"تسجيل كبائع"
 }

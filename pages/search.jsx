@@ -1,4 +1,5 @@
-import ALink from 'next/link';
+import ALink from '~/components/features/alink';
+
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useBrandsQuery } from '~/framework/rest/brand/brands.query';
@@ -118,7 +119,7 @@ export default function Search() {
                                     key={item.id}
                                     className="child-category-wrapper"
                                 >
-                                    <a
+                                    <ALink
                                         href={`/search?category=${item.slug}`}
                                         className="child-element"
                                     >
@@ -131,7 +132,7 @@ export default function Search() {
                                             ></div>
                                         )}
                                         <h3>{item.name}</h3>
-                                    </a>
+                                    </ALink>
                                 </div>
                             ))}
                     </OwlCarousel>

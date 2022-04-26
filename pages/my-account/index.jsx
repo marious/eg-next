@@ -5,8 +5,12 @@ import ALink from '~/components/features/alink';
 import PageHeader from '~/components/features/page-header';
 import UserOrders from '~/components/orders/UserOrders';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ShippingDetails from '~/components/checkout/ShippingDetails';
+import userUser from '~/framework/rest/auth/use-user';
 
 function DashBoard() {
+    const { me } = userUser();
+
     function toOrder(e) {
         e.preventDefault();
         document
@@ -161,59 +165,7 @@ function DashBoard() {
                                                 </p>
 
                                                 <div className="row">
-                                                    <div className="col-lg-6">
-                                                        <div className="card card-dashboard">
-                                                            <div className="card-body">
-                                                                <h3 className="card-title">
-                                                                    Billing
-                                                                    Address
-                                                                </h3>
-
-                                                                <p>
-                                                                    User Name
-                                                                    <br />
-                                                                    User Company
-                                                                    <br />
-                                                                    John str
-                                                                    <br />
-                                                                    New York, NY
-                                                                    10001
-                                                                    <br />
-                                                                    1-234-987-6543
-                                                                    <br />
-                                                                    yourmail@mail.com
-                                                                    <br />
-                                                                    <ALink href="#">
-                                                                        Edit{' '}
-                                                                        <i className="icon-edit"></i>
-                                                                    </ALink>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-lg-6">
-                                                        <div className="card card-dashboard">
-                                                            <div className="card-body">
-                                                                <h3 className="card-title">
-                                                                    Shipping
-                                                                    Address
-                                                                </h3>
-
-                                                                <p>
-                                                                    You have not
-                                                                    set up this
-                                                                    type of
-                                                                    address yet.
-                                                                    <br />
-                                                                    <ALink href="#">
-                                                                        Edit{' '}
-                                                                        <i className="icon-edit"></i>
-                                                                    </ALink>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <ShippingDetails />
                                                 </div>
                                             </TabPanel>
 

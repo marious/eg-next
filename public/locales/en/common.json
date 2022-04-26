@@ -32,5 +32,8 @@
     "Confirmed": "Confirmed",
     "Processed": "Processed",
     "Shipped": "Shipped",
-    "Delivered": "Delivered"
+    "Delivered": "Delivered",
+    "Save":"Save",
+    "Cancel":"Cancel",
+    "Be A Seller": "Be A Seller"
 }

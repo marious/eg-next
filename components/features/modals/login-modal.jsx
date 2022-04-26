@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import LoginForm from '~/components/auth/login-form';
@@ -15,6 +16,7 @@ const customStyles = {
 Modal.setAppElement('body');
 
 function LoginModal() {
+    const { t } = useTranslation('common');
     const [open, setOpen] = useState(false);
     let timer;
 
@@ -44,9 +46,9 @@ function LoginModal() {
     }
 
     return (
-        <li>
+        <li className="seller-link">
             <ALink href="/register-shop" className="forgot-link">
-                Be a seller
+                {t('Be A Seller')}
             </ALink>
             {open ? (
                 <Modal

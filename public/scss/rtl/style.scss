@@ -30,6 +30,19 @@ html[dir='rtl'] {
         left: 0.9rem;
     }
 
+    .header-2 .top-menu li + li {
+        margin-left: auto;
+        margin-right: 2rem;
+    }
+
+    .header-middle .lang-flag {
+        display: flex;
+        // flex-direction: row-reverse;
+        img {
+            padding-top:6px;
+        }
+    }
+
     @media screen and (min-width: 768px) {
         .toolbox-right {
             margin-right: auto;
