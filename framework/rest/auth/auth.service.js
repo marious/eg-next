@@ -3,6 +3,9 @@ import { API_ENDPOINTS } from '../utils/endpoints';
 
 class Auth extends CoreApi {
     login(input) {
+        if (localStorage.getItem('tempUserId')) {
+            input.temp_user_id = localStorage.getItem('tempUserId');
+        }
         return this.http.post(API_ENDPOINTS.LOGIN, input).then(res => res.data);
     }
 

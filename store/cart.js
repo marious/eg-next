@@ -2,6 +2,8 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { takeEvery } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
+import { CartService } from '~/framework/rest/cart/cart.service';
+import axios from 'axios';
 
 export const actionTypes = {
     addToCart: 'ADD_TO_CART',
@@ -10,6 +12,17 @@ export const actionTypes = {
     updateCart: 'UPDATE_CART',
     clearCart: 'CLEAR_CART',
 };
+
+// async function getCartData() {
+//     const res = await axios.post('http://egshop.test/api/v1/carts', {
+//         temp_user_id: localStorage.getItem('tempUserId'),
+//     });
+//     return await res.json();
+// }
+
+// const cartData = await getCartData();
+
+// console.log('welcome', cartData);
 
 const initialState = {
     data: [],
@@ -133,6 +146,11 @@ export const actions = {
 
 export function* cartSaga() {
     yield takeEvery(actionTypes.addToCart, function* saga(e) {
+        CartService.add({
+            qty: e.payload.qty,
+            variation_id: e.payload.product.variations[0].id,
+        });
+        // CartService.add(e.payload.product);
         toast.success('Product added to Cart');
     });
 
@@ -141,6 +159,8 @@ export function* cartSaga() {
     });
 
     yield takeEvery(actionTypes.updateCart, function* saga(e) {
+        const cartData = e.payload.cartItems;
+        console.log('welcome', e);
         toast.success('Cart updated successfully');
     });
 }
