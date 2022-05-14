@@ -71,12 +71,13 @@ function Header() {
                         </button>
 
                         <ALink href="/" className="logo">
-                            <img
+                            <h3 className="pt-2">EG</h3>
+                            {/* <img
                                 src="images/logo.png"
                                 alt="Molla Logo"
                                 width={104}
                                 height={27}
-                            />
+                            /> */}
                         </ALink>
                     </div>
 
